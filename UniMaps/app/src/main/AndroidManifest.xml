@@ -13,7 +13,7 @@
         android:theme="@style/Theme.UniMaps"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity2"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.UniMaps.NoActionBar">

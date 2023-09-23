@@ -19,7 +19,7 @@
             android:layout_height="24dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:src="@tools:sample/avatars"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -51,7 +51,7 @@
             android:id="@+id/imageView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@tools:sample/avatars"
+
             app:srcCompat="@drawable/img_9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +62,7 @@
             android:id="@+id/imageView11"
             android:layout_width="319dp"
             android:layout_height="193dp"
-            android:src="@tools:sample/avatars"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +73,7 @@
             android:id="@+id/imageView13"
             android:layout_width="218dp"
             android:layout_height="182dp"
-            android:src="@tools:sample/avatars"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -118,7 +118,7 @@
             android:id="@+id/imageView16"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@tools:sample/avatars"
+
             app:srcCompat="@drawable/img_6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -140,7 +140,7 @@
             android:id="@+id/imageView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@tools:sample/avatars"
+
             app:srcCompat="@drawable/img_7"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

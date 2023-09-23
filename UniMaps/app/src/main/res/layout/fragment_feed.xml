@@ -19,7 +19,6 @@
             android:layout_height="24dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:src="@tools:sample/avatars"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -90,7 +89,7 @@
             android:id="@+id/imageView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@tools:sample/avatars"
+
             app:srcCompat="@drawable/img_1"
 
             app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +100,7 @@
             android:id="@+id/imageView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@tools:sample/avatars"
+
             app:srcCompat="@drawable/img_2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -123,7 +122,6 @@
             android:id="@+id/imageView12"
             android:layout_width="412dp"
             android:layout_height="75dp"
-            android:src="@tools:sample/avatars"
             app:srcCompat="@drawable/img_1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -133,7 +131,7 @@
             android:id="@+id/imageView15"
             android:layout_width="412dp"
             android:layout_height="80dp"
-            android:src="@tools:sample/avatars"
+
             app:srcCompat="@drawable/img_4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -143,7 +141,7 @@
             android:id="@+id/imageView14"
             android:layout_width="412dp"
             android:layout_height="76dp"
-            android:src="@tools:sample/avatars"
+
             app:srcCompat="@drawable/img_2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
