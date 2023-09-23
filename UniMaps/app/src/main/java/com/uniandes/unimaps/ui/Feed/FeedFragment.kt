@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.uniandes.unimaps.databinding.FragmentGalleryBinding
 
-class GalleryFragment : Fragment() {
+class FeedFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
 
