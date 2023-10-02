@@ -29,8 +29,11 @@ class AccessActivity : AppCompatActivity() {
         binding = AccessBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.loginbutton.setOnClickListener(View.OnClickListener {
-            // Se inicia sesion
-
+            // Se inicia sesion:
+            // TODO - Verificar si es necesario conectar con el back (mas adelante)
+            // Manda a ventana principal:
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         })
     }
 
