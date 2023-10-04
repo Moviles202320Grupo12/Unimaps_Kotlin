@@ -22,10 +22,6 @@
             android:exported="false"
             android:label="@string/title_activity_register" />
         <activity
-            android:name=".MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_register" />
-        <activity
             android:name=".LogInActivity"
             android:exported="true"
             android:label="@string/title_activity_log_in">
@@ -43,6 +39,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
