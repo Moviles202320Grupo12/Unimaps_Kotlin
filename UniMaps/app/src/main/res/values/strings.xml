@@ -12,5 +12,7 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_log_in">Log In</string>
     <string name="title_activity_register">Register</string>
+    <string name="title_activity_event_feed">Register</string>
+
     <string name="title_activity_access">AccessActivity</string>
 </resources>
