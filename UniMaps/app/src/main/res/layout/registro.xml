@@ -36,6 +36,20 @@
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
             android:inputType="textPassword"
+            android:hint="   Nombre Completo"
+            android:textColorHint="@color/black"
+            android:fontFamily="@font/urbanist_medium"
+            android:textSize="15sp"
+            android:id="@+id/fullName"
+            app:cornerRadius="5dp">
+        </EditText>
+
+        <EditText
+            android:background="@drawable/register_border"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:inputType="textPassword"
             android:hint="   Username"
             android:textColorHint="@color/black"
             android:fontFamily="@font/urbanist_medium"

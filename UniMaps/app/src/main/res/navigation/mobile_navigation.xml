@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_events"
         android:name="com.uniandes.unimaps.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:label="@string/menu_events"
+        tools:layout="@layout/eventosfeed" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_tutors"
         android:name="com.uniandes.unimaps.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:label="@string/menu_tutors"
+        tools:layout="@layout/tutores_search" />
 </navigation>

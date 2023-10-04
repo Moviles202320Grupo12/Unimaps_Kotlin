@@ -5,11 +5,11 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Ajustes</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_home">Inicio</string>
+    <string name="menu_events">Eventos</string>
+    <string name="menu_tutors">Tutores</string>
     <string name="title_activity_log_in">Log In</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_access">AccessActivity</string>
