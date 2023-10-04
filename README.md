@@ -21,3 +21,9 @@ https://github.com/Moviles202320Grupo12/Unimaps_Kotlin/assets/60269766/e388dfd8-
 This view allows a user to see a list of the current available tutors and can filter them according to their needs.
 https://github.com/Moviles202320Grupo12/Unimaps_Kotlin/assets/60269766/6dc12729-285b-4065-92d1-fce5d7b8172c
 
+## Principal feed view and Walking Points view:
+In this views, we can see the principal view of the app that appears after the login, and the functionality of walking points, that use the activity sensor for give points to the user that serves to obtain cuppons later.
+![image](https://github.com/Moviles202320Grupo12/Unimaps_Kotlin/assets/89108988/b30e7333-0894-44bc-8ddc-db9cd7d6f076)
+![image](https://github.com/Moviles202320Grupo12/Unimaps_Kotlin/assets/89108988/b4849811-3c27-4fbd-a6c5-dd59f5795900)
+
+
