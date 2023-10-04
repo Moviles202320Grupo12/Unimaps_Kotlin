@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="eventDateTextView" type="id" />
+    <item name="eventLocationTextView" type="id" />
+</resources>

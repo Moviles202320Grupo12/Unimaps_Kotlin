@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/eventosfeed"
+    android:id="@+id/tutor_search"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/gray_forms"
@@ -11,70 +11,66 @@
     android:visibility="visible">
 
     <Button
-        android:id="@+id/FilterButton1"
+        android:id="@+id/FilterButton2"
         android:layout_width="127dp"
         android:layout_height="53dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="12dp"
         android:backgroundTint="@color/brown"
         android:fontFamily="@font/urbanist_semi_bold"
         android:text="Filtrar"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:cornerRadius="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/editTextSearch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eventostitle" />
+        app:layout_constraintEnd_toStartOf="@+id/editTextSearch2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/eventostitle"
+        android:id="@+id/tutor_title"
         android:layout_width="394dp"
         android:layout_height="80dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="35dp"
         android:background="@color/gray_forms"
         android:backgroundTint="@color/gray_forms"
         android:fontFamily="@font/urbanist_semi_bold"
-        android:text="Eventos Disponibles"
+        android:text="Tutores Disponibles"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#0B0A0A"
         android:textSize="34sp"
         android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/FilterButton2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/listViewEvents"
+        android:id="@+id/listViewTutores"
         android:layout_width="362dp"
         android:layout_height="538dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="5dp"
         android:background="@color/gray_form_border"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FilterButton1" />
+        app:layout_constraintTop_toBottomOf="@+id/FilterButton2" />
 
     <EditText
-        android:id="@+id/editTextSearch"
+        android:id="@+id/editTextSearch2"
         style="@android:style/Widget.Material.SearchView"
         android:layout_width="239dp"
         android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
         android:background="@color/gray_form_border"
-        android:hint="Buscar eventos"
+        android:hint="Buscar Tutores"
         android:showDividers="middle|beginning|end"
         android:textAlignment="center"
         android:textSize="20sp"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/FilterButton1"
-        app:layout_constraintTop_toBottomOf="@+id/eventostitle" />
+        app:layout_constraintBottom_toTopOf="@+id/listViewTutores"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
