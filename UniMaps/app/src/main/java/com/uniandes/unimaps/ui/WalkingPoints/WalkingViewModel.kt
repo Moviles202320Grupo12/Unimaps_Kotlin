@@ -1,13 +1,12 @@
-package com.uniandes.unimaps.ui.Feed
+package com.uniandes.unimaps.ui.WalkingPoints
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-
-class FeedViewModel : ViewModel() {
-
+class WalkingViewModel : ViewModel()  {
     private val _text = MutableLiveData<String>().apply {
-        value = "This is Feed Fragment"
+        value = "This is Walking Points Fragment"
     }
     val text: LiveData<String> = _text
+
 }

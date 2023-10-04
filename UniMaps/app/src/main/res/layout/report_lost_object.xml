@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <TextView
         android:id="@+id/textView3"
@@ -11,7 +12,9 @@
         android:layout_height="wrap_content"
         android:text="Objetos Perdios"
         tools:layout_editor_absoluteX="63dp"
-        tools:layout_editor_absoluteY="102dp" />
+        tools:layout_editor_absoluteY="102dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/button5"
@@ -19,7 +22,9 @@
         android:layout_height="wrap_content"
         android:text="Button"
         tools:layout_editor_absoluteX="185dp"
-        tools:layout_editor_absoluteY="624dp" />
+        tools:layout_editor_absoluteY="624dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
         android:id="@+id/imageView7"
@@ -27,7 +32,9 @@
         android:layout_height="144dp"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:layout_editor_absoluteX="120dp"
-        tools:layout_editor_absoluteY="228dp" />
+        tools:layout_editor_absoluteY="228dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/textView4"
@@ -35,7 +42,9 @@
         android:layout_height="wrap_content"
         android:text="What did you find?"
         tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="387dp" />
+        tools:layout_editor_absoluteY="387dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/textView5"
@@ -43,7 +52,9 @@
         android:layout_height="wrap_content"
         android:text="Where was it?"
         tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="442dp" />
+        tools:layout_editor_absoluteY="442dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/textView6"
@@ -51,7 +62,9 @@
         android:layout_height="wrap_content"
         android:text="When did you find it?"
         tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="484dp" />
+        tools:layout_editor_absoluteY="484dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/textView7"
@@ -59,5 +72,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="534dp" />
+        tools:layout_editor_absoluteY="534dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
