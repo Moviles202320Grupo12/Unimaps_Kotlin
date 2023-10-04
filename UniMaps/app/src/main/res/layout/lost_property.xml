@@ -11,7 +11,9 @@
         android:layout_height="93dp"
         app:srcCompat="@drawable/ic_menu_gallery"
         tools:layout_editor_absoluteX="235dp"
-        tools:layout_editor_absoluteY="239dp" />
+        tools:layout_editor_absoluteY="239dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
         android:id="@+id/imageView4"
@@ -19,7 +21,9 @@
         android:layout_height="93dp"
         app:srcCompat="@drawable/ic_menu_gallery"
         tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="436dp" />
+        tools:layout_editor_absoluteY="436dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
         android:id="@+id/imageView5"
@@ -27,7 +31,9 @@
         android:layout_height="93dp"
         app:srcCompat="@drawable/ic_menu_gallery"
         tools:layout_editor_absoluteX="235dp"
-        tools:layout_editor_absoluteY="436dp" />
+        tools:layout_editor_absoluteY="436dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
         android:id="@+id/imageView3"
@@ -35,7 +41,9 @@
         android:layout_height="93dp"
         app:srcCompat="@drawable/ic_menu_gallery"
         tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="239dp" />
+        tools:layout_editor_absoluteY="239dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/button"
@@ -43,7 +51,9 @@
         android:layout_height="wrap_content"
         android:text="Celphones"
         tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="148dp" />
+        tools:layout_editor_absoluteY="148dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/button2"
@@ -51,7 +61,9 @@
         android:layout_height="wrap_content"
         android:text="Books"
         tools:layout_editor_absoluteX="170dp"
-        tools:layout_editor_absoluteY="148dp" />
+        tools:layout_editor_absoluteY="148dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/button3"
@@ -59,7 +71,8 @@
         android:layout_height="wrap_content"
         android:text="computer"
         tools:layout_editor_absoluteX="278dp"
-        tools:layout_editor_absoluteY="148dp" />
+        tools:layout_editor_absoluteY="148dp" app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
         android:id="@+id/button4"
@@ -67,7 +80,9 @@
         android:layout_height="wrap_content"
         android:text="Report lost object"
         tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="605dp" />
+        tools:layout_editor_absoluteY="605dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -75,5 +90,7 @@
         android:layout_height="wrap_content"
         android:text="Objetos Perdidos"
         tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="57dp" />
+        tools:layout_editor_absoluteY="57dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
