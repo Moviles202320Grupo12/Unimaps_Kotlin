@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    tools:context=".LogInActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -19,39 +18,41 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
             android:padding="24dp">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:layout_gravity="center"
-                android:src="@drawable/logo"
                 android:contentDescription="Logo"
-                />
+                android:src="@mipmap/ic_launcher"  />
 
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="Ingresar"
-                android:fontFamily="@font/urbanist_semi_bold"
                 android:id="@+id/loginButton"
-                android:backgroundTint="@color/brown"
-                android:textSize="18sp"
-                android:layout_marginTop="30dp"
-                app:cornerRadius = "10dp"/>
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Crear Cuenta"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/brown"
                 android:fontFamily="@font/urbanist_semi_bold"
-                android:backgroundTint="@color/black"
-                android:id="@+id/registerButton"
+                android:text="Ingresar"
+                android:textColor="@color/white"
                 android:textSize="18sp"
-                android:layout_marginTop="10dp"
-                app:cornerRadius = "10dp"/>
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="@color/black"
+                android:fontFamily="@font/urbanist_semi_bold"
+                android:text="Crear cuenta"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:cornerRadius="10dp" />
 
 
         </LinearLayout>
@@ -62,13 +63,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Continua como invitado"
-        android:fontFamily="@font/urbanist_extra_bold"
-        android:textSize="16sp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:textStyle="bold"/>
-
+        android:fontFamily="@font/urbanist_extra_bold"
+        android:text="Continua como invitado"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 
 </LinearLayout>

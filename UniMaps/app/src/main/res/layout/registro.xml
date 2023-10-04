@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccessActivity">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="70dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Hola! Regístrese para comenzar"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:id="@+id/text_top"
+            android:fontFamily="@font/urbanist_semi_bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:background="@drawable/register_border"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:inputType="textPassword"
+            android:hint="   Username"
+            android:textColorHint="@color/black"
+            android:fontFamily="@font/urbanist_medium"
+            android:textSize="15sp"
+            android:id="@+id/username"
+            app:cornerRadius="5dp">
+        </EditText>
+
+        <EditText
+            android:background="@drawable/register_border"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:inputType="textEmailAddress"
+            android:hint="   Email"
+            android:textColorHint="@color/black"
+            android:fontFamily="@font/urbanist_medium"
+            android:textSize="15sp"
+            android:id="@+id/email"
+            app:cornerRadius="5dp">
+        </EditText>
+
+        <EditText
+            android:background="@drawable/register_border"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:inputType="textPassword"
+            android:hint="   Contraseña"
+            android:textColorHint="@color/black"
+            android:fontFamily="@font/urbanist_medium"
+            android:textSize="15sp"
+            android:id="@+id/password"
+            app:cornerRadius="5dp">
+        </EditText>
+
+
+        <EditText
+            android:background="@drawable/register_border"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:inputType="textPassword"
+            android:hint="   Confirma contraseña"
+            android:textColorHint="@color/black"
+            android:fontFamily="@font/urbanist_medium"
+            android:textSize="15sp"
+            android:id="@+id/confirm_password"
+            app:cornerRadius="5dp">
+        </EditText>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:id="@+id/registerbutton"
+            android:fontFamily="@font/urbanist_semi_bold"
+            android:textColor="@color/white"
+            android:text="Registrar"
+            android:backgroundTint="@color/black">
+        </Button>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="20dp">
+
+
+            <!-- Línea divisoria izquierda -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="#E8ECF4" /> <!-- Cambia el color y la altura según tus preferencias -->
+
+            <!-- Texto -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registrarse con"
+                android:fontFamily="@font/urbanist_semi_bold"
+                android:textSize="14sp"
+                android:textColor="#000" />
+
+            <!-- Línea divisoria derecha -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="#E8ECF4"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="70dp">
+
+            <!-- Primera vista -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/register_social_instagram"
+                android:layout_marginRight="16dp"/>
+
+            <!-- Segunda vista -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/register_social_google"
+                android:layout_marginRight="16dp"/>
+
+            <!-- Tercera vista -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/register_social_apple" />
+        </LinearLayout>
+
+        <!-- Footer -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- Elementos del footer van aquí -->
+            <TextView
+                android:fontFamily="@font/urbanist_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No tienes una cuenta?"
+                android:textColor="@color/black" />
+            <TextView
+                android:fontFamily="@font/urbanist_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Registrate ahora"
+                android:textColor="@color/link_color"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

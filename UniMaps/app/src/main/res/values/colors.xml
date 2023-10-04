@@ -12,4 +12,7 @@
     <color name="orange">#F6A700</color>
     <color name="yellow">#FED353</color>
     <color name="gray">#161716</color>
+    <color name="gray_forms">#F7F8F9</color>
+    <color name="gray_form_border">#E8ECF4</color>
+    <color name="link_color">#F6A700</color>
 </resources>
