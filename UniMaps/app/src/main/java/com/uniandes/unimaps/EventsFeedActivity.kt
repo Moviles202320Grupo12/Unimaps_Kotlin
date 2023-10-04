@@ -1,7 +1,8 @@
 package com.uniandes.unimaps
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
+import android.os.Parcelable
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
@@ -23,25 +24,32 @@ class EventsFeedActivity : AppCompatActivity()  {
         buttonFilter = findViewById(R.id.FilterButton1)
 
         // Sample list of events (replace this with your actual event data)
-        val events = mutableListOf(
-            Event(1,"Event 1", "Description 1","09/09/2023","google.com","google.com"),
-            Event(2,"Event 1", "Description 1","09/09/2023","google.com","google.com"),
-            Event(3,"Event 1", "Description 1","09/09/2023","google.com","google.com"),
+        val events = listOf(
+            Event("1","Event 1", "Crazy? I was crazy once. They locked me in a room. A rubber room! A rubber room with rats,and rats make me crazy. Crazy? I was crazy once. They locked me in a room. A rubber room! A rubber room with rats,and rats make me crazy. Crazy? I was crazy once. They locked me in a room. A rubber room! A rubber room with rats,and rats make me crazy. Crazy? I was crazy once. They locked me in a room. A rubber room! A rubber room with rats,and rats make me crazy. Crazy? I was crazy once. They locked me in a room. A rubber room! A rubber room with rats,and rats make me crazy. 1","09/09/2023","google.com",".com"),
+            Event("2","Event 1", "Description 1","09/09/2023","google.com","google.com"),
+            Event("3","Event 1", "Description 1","09/09/2023","google.com","google.com"),
         )
 
         // Create an ArrayAdapter to populate the ListView with event names
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, events.map { it.id })
-
+        val adapter = EventAdapter(this, events)
         // Set the adapter for the ListView
         listViewEvents.adapter = adapter
 
         // Handle item clicks
         listViewEvents.setOnItemClickListener { _, _, position, _ ->
             val clickedEvent = events[position]
-            // Handle the click event here
-            // For example, you can open a new activity to display event details
-            Toast.makeText(this, "Clicked on ${clickedEvent.name}", Toast.LENGTH_SHORT).show()
-        }
+// Assuming you're passing an event object
+            val event = events[position]
+
+            val intent = Intent(this, EventDetailsActivity::class.java)
+
+// Provide explicit type information to differentiate putExtra overloads
+            intent.putExtra("event", event as Parcelable)
+
+            startActivity(intent)
+
+
+    }
 
         // Handle filter button click
         buttonFilter.setOnClickListener {

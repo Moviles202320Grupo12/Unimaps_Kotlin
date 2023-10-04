@@ -1,35 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/eventDescriptionTextView2"
+    <ImageView
+        android:id="@+id/tutorImageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#020202"
-        android:textSize="20sp" />
+        android:background="@color/gray_form_border"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/eventLocationTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#020202"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/eventDateTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#020202"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/eventNameTextView"
+        android:id="@+id/tutorNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -37,7 +24,28 @@
         tools:textColor="#050505" />
 
     <TextView
-        android:id="@+id/eventDescriptionTextView"
+        android:id="@+id/tutorMateriaTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#020202"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tutorLocationTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#020202"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tutorDateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#020202"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/TutorDescriptionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#020202"
