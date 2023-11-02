@@ -45,10 +45,15 @@ class AccessActivity : AppCompatActivity() {
             val password = binding.password.text.toString()
             if(username != "" && password!= "")
             {
-                // Inicializar el contexto de CoroutineScope
+                /**
+                 * Se utilizan corutinas para la parte del manejo de concurrencia de la aplicación:
+                 */
+
+
+                // Inicializar el contexto de CoroutineScope:
                 val coroutineScope = CoroutineScope(Dispatchers.Main)
 
-                // Llamar a la función verifyUserLogIn en un contexto de Coroutine
+                // Llamar a la función verifyUserLogIn en un contexto de Coroutine:
                 coroutineScope.launch {
                     try {
                         val puedeIngresar = loginViewModel.verifyUserLogIn(username, password)
@@ -70,7 +75,7 @@ class AccessActivity : AppCompatActivity() {
                         toast.show()
                     }
                 }
-                }
+            }
 
             else{
                 val toast = Toast.makeText(applicationContext, "Por favor rellene todos los campos", Toast.LENGTH_LONG)
