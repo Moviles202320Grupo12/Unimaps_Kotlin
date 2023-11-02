@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.uniandes.unimaps.databinding.AccessBinding
-import com.uniandes.unimaps.viewmodels.LogInViewModel
+import com.uniandes.unimaps.ui.Login.LogInViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

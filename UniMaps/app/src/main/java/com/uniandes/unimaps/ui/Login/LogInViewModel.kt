@@ -1,4 +1,4 @@
-package com.uniandes.unimaps.viewmodels
+package com.uniandes.unimaps.ui.Login
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.ktx.firestore
