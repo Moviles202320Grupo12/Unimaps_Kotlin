@@ -16,14 +16,6 @@ class EventDetailsActivity : AppCompatActivity()  {
         setContentView(view)
 
         // Get the event data passed from EventFeedActivity
-        val event = intent.getParcelableExtra<Event>("event")
-
-        // Populate UI elements with event details using View Binding
-        // Populate other views...
-        binding.eventNameTextView.text = event?.name
-        binding.eventDateTextView.text = event?.date
-        binding.eventLocationTextView.text = event?.location
-        binding.eventosDetails
 
     }
 

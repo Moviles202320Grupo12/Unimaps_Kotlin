@@ -30,7 +30,7 @@ class EventAdapter(
 
         eventNameTextView.text = currentEvent?.name
         eventDescriptionTextView.text = currentEvent?.description
-        eventDateTextView.text = currentEvent?.date
+        eventDateTextView.text = currentEvent?.date.toString()
         eventLocationTextView.text = currentEvent?.location
 
         return listItemView

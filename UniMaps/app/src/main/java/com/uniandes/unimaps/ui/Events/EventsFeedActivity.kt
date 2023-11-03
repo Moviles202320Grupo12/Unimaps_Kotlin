@@ -1,8 +1,6 @@
 package com.uniandes.unimaps.ui.Events
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -15,6 +13,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.withContext
+import java.security.Timestamp
+import java.util.Date
 
 class EventsFeedActivity : AppCompatActivity()  {
     private lateinit var listViewEvents: ListView
@@ -35,33 +36,13 @@ class EventsFeedActivity : AppCompatActivity()  {
         editTextSearch = findViewById(R.id.editTextSearch)
         buttonFilter = findViewById(R.id.FilterButton1)
 
-        // Sample list of events (replace this with your actual event data)
-         events = mutableListOf(
-            Event("1","Event 1", "Description 1","09/09/2023","google.com",".com",""),
-            Event("2","Event 1", "Description 2","09/09/2023","google.com","google.com",""),
-            Event("3","Event 1", "Description 3","09/09/2023","google.com","google.com",""),
-        )
-
         // Create an ArrayAdapter to populate the ListView with event names
         val adapter = EventAdapter(this, events)
         // Set the adapter for the ListView
         listViewEvents.adapter = adapter
 
         // Handle item clicks
-        listViewEvents.setOnItemClickListener { _, _, position, _ ->
-            val clickedEvent = events[position]
-        // Assuming you're passing an event object
-            val event = events[position]
 
-            val intent = Intent(this, EventDetailsActivity::class.java)
-
-                // Provide explicit type information to differentiate putExtra overloads
-            intent.putExtra("event", event as Parcelable)
-
-            startActivity(intent)
-
-
-    }
 
         // Handle filter button click
         buttonFilter.setOnClickListener {
@@ -93,8 +74,11 @@ class EventsFeedActivity : AppCompatActivity()  {
                 events.clear()
                 events.addAll(eventsList)
                 // Create an ArrayAdapter to populate the ListView with event names
-
-
+                // Crear un ArrayAdapter en el contexto principal
+                withContext(Dispatchers.Main) {
+                    val adapter = EventAdapter(this@EventsFeedActivity, events)
+                    listViewEvents.adapter = adapter
+                }
 
             }
             catch  (exception: Exception)
@@ -103,8 +87,8 @@ class EventsFeedActivity : AppCompatActivity()  {
             }
 
         }
-        val adapter = EventAdapter(this, events)
-        // Set the adapter for the ListView
-        listViewEvents.adapter = adapter
+
+
+
     }
 }
