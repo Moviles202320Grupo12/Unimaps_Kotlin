@@ -2,24 +2,25 @@ package com.uniandes.unimaps.ui.WalkingPoints
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.uniandes.unimaps.R
 import com.uniandes.unimaps.databinding.FragmentWpBinding
+import com.uniandes.unimaps.helpers.Network
 
 
-class WalkingFragment  : Fragment() {
+class WalkingFragment  : AppCompatActivity(){
     private lateinit var sensorManager: SensorManager
-    private lateinit var stepSensor: Sensor
+    private var stepSensor: Sensor? = null
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var textViewSteps: TextView
     private lateinit var textCal : TextView
@@ -28,30 +29,50 @@ class WalkingFragment  : Fragment() {
     private lateinit var textBonos : TextView
     private var currentSteps: Int = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_wp, container, false)
-        textViewSteps = rootView.findViewById(R.id.textViewPuntos)
-        textKm=rootView.findViewById(R.id.textViewKm)
-        textMin=rootView.findViewById(R.id.textViewMin)
-        textBonos=rootView.findViewById(R.id.textViewBonos)
-        textCal=rootView.findViewById(R.id.textViewCal)
+    private lateinit var binding: FragmentWpBinding
 
+    override fun onCreate(
+        savedInstanceState: Bundle?
+    ) {
+        super.onCreate(savedInstanceState)
+        //actionbar
+        val actionbar = supportActionBar
+        //set actionbar title
+        actionbar!!.title = "Walking Points"
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#000000")))
+        //set back button
+        actionbar.setDisplayHomeAsUpEnabled(true)
+        actionbar.setDisplayHomeAsUpEnabled(true)
+        binding = FragmentWpBinding.inflate(layoutInflater)
+        val root: View = binding.root
         // Inicializa el sensorManager y el sensor
-        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)?: run {
-            // Manejar el caso en que el sensor es nulo
-            // Puedes mostrar un mensaje de error o deshabilitar la funcionalidad de contar pasos
-            // Por ejemplo, puedes mostrar un mensaje de error en el TextView
-            textViewSteps.text = "Sensor de contador de pasos no disponible en este dispositivo"
-            return rootView // O regresar una vista vacía o lo que sea apropiado para tu caso
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        if (stepSensor == null) {
+            // Muestra un mensaje al usuario
+            val toast = Toast.makeText(this, "Sensor de contador de pasos no disponible en este dispositivo", Toast.LENGTH_LONG)
+            toast.show()
+        }else{
+            val toast = Toast.makeText(this, "Activo!", Toast.LENGTH_LONG)
+            toast.show()
         }
 
+        val net=Network.checkConnectivity(this)
+        if (net){
+
+        }else{
+            val toast = Toast.makeText(this, "Ups! No cuentas con coneccion en este momento, conectate para subir tus puntos", Toast.LENGTH_LONG)
+            toast.show()
+        }
+
+        textViewSteps = root.findViewById(R.id.textViewPuntos)
+        textKm=root.findViewById(R.id.textViewKm)
+        textMin=root.findViewById(R.id.textViewMin)
+        textBonos=root.findViewById(R.id.textViewBonos)
+        textCal=root.findViewById(R.id.textViewCal)
+
         // Inicializa las preferencias compartidas
-        sharedPreferences = requireContext().getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
 
         // Recupera el valor almacenado de pasos
         currentSteps = sharedPreferences.getInt("stepCount", 0)
@@ -61,7 +82,7 @@ class WalkingFragment  : Fragment() {
         textBonos.text = ((currentSteps.toFloat()*0.00001).toInt()).toString()
         textMin.text = ((currentSteps.toFloat()*0.005).toInt()).toString()
 
-        return rootView
+        setContentView(binding.root)
     }
 
     override fun onResume() {
@@ -107,9 +128,9 @@ class WalkingFragment  : Fragment() {
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        // Libera la vinculación cuando la vista se destruye
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
 

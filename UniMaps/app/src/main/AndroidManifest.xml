@@ -11,7 +11,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.UniMaps"
         tools:targetApi="31">
@@ -19,6 +19,10 @@
             android:name=".AccessActivity"
             android:exported="false"
             android:label="@string/title_activity_access" />
+        <activity
+            android:name=".ui.WalkingPoints.WalkingFragment"
+            android:exported="false"
+            android:label="@string/title_activity_WP" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
