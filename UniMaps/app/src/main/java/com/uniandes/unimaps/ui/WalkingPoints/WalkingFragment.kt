@@ -30,6 +30,7 @@ class WalkingFragment  : AppCompatActivity(){
     private lateinit var textMin : TextView
     private lateinit var textBonos : TextView
     private var currentSteps: Int = 0
+    private var newSteps: Int = 0
 
     private lateinit var binding: FragmentWpBinding
 
@@ -82,12 +83,9 @@ class WalkingFragment  : AppCompatActivity(){
         sharedPreferences = getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
 
         // Recupera el valor almacenado de pasos
+        // Recupera los datos almacenados en SharedPreferences
+        loadCachedData()
         currentSteps = sharedPreferences.getInt("stepCount", 0)
-        textViewSteps.text = currentSteps.toString()
-        textCal.text = ((currentSteps.toFloat()*0.05).toInt()).toString()
-        textKm.text = ((currentSteps.toFloat()*0.0005).toInt()).toString()
-        textBonos.text = ((currentSteps.toFloat()*0.00001).toInt()).toString()
-        textMin.text = ((currentSteps.toFloat()*0.005).toInt()).toString()
 
         setContentView(binding.root)
     }
@@ -100,12 +98,26 @@ class WalkingFragment  : AppCompatActivity(){
             sensorManager.registerListener(stepListener, stepSensor, SensorManager.SENSOR_DELAY_NORMAL)
         }
     }
+    private fun loadCachedData() {
+        // Recupera el valor almacenado de pasos
+        currentSteps = sharedPreferences.getInt("stepCount", 0)
+        textViewSteps.text = currentSteps.toString()
+        textCal.text = ((currentSteps.toFloat() * 0.05).toInt()).toString()
+        textKm.text = ((currentSteps.toFloat() * 0.0005).toInt()).toString()
+        textBonos.text = ((currentSteps.toFloat() * 0.00001).toInt()).toString()
+        textMin.text = ((currentSteps.toFloat() * 0.005).toInt()).toString()
+    }
 
     override fun onPause() {
         super.onPause()
 
+        // Almacena el nuevo número de pasos en las preferencias compartidas
         // Detiene la escucha del SensorEventListener cuando el fragmento se pausa
         sensorManager.unregisterListener(stepListener)
+
+        val editor = sharedPreferences.edit()
+        editor.putInt("stepCount", currentSteps+newSteps)
+        editor.apply()
     }
 
     private val stepListener = object : SensorEventListener {
@@ -114,19 +126,15 @@ class WalkingFragment  : AppCompatActivity(){
             val steps = event.values[0].toInt()
 
             // Calcula los nuevos pasos totales
-            currentSteps += steps
+            newSteps=steps
 
             // Actualiza el TextView con el nuevo número de pasos
-            textViewSteps.text = currentSteps.toString()
+            textViewSteps.text = (currentSteps+steps).toString()
             textCal.text = ((currentSteps.toFloat()*0.05).toInt()).toString()
             textKm.text = ((currentSteps.toFloat()*0.0005).toInt()).toString()
             textBonos.text = ((currentSteps.toFloat()*0.00001).toInt()).toString()
             textMin.text = ((currentSteps.toFloat()*0.005).toInt()).toString()
 
-            // Almacena el nuevo número de pasos en las preferencias compartidas
-            val editor = sharedPreferences.edit()
-            editor.putInt("stepCount", currentSteps)
-            editor.apply()
         }
 
         override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
