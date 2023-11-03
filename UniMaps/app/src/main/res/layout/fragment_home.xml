@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="horizontal"
     android:background="#FFFFFF">
     <FrameLayout
@@ -30,12 +31,31 @@
         />
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/errorMessageTextView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Mapa no disponible. Por favor, verifica tu conexión a Internet."
-        android:textSize="16sp" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/errorMessageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:text="Mapa no disponible. Por favor, verifica tu conexión a Internet."
+            android:textSize="25dp"
+            android:layout_above="@id/loginButton"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/yellow"
+            android:fontFamily="@font/urbanist_semi_bold"
+            android:text="Regresar"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
 
 </LinearLayout>
