@@ -1,4 +1,4 @@
-package com.uniandes.unimaps
+package com.uniandes.unimaps.ui.Tutor
 
 import android.os.Bundle
 import android.widget.Button

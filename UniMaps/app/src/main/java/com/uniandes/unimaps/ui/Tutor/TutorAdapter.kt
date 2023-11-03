@@ -1,15 +1,15 @@
-package com.uniandes.unimaps
+package com.uniandes.unimaps.ui.Tutor
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
-import android.provider.ContactsContract.CommonDataKinds.Website.URL
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.uniandes.unimaps.R
 import java.net.HttpURLConnection
 import java.net.URL
 

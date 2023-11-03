@@ -1,17 +1,13 @@
 package com.uniandes.unimaps.ui.home
 
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,9 +20,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.uniandes.unimaps.R
 import com.uniandes.unimaps.databinding.FragmentHomeBinding
 import com.uniandes.unimaps.helpers.Network
-import java.io.IOException
-import java.net.HttpURLConnection
-import java.net.URL
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback {

@@ -1,4 +1,4 @@
-package com.uniandes.unimaps
+package com.uniandes.unimaps.ui.Events
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.uniandes.unimaps.R
 
 class EventsFeedActivity : AppCompatActivity()  {
     private lateinit var listViewEvents: ListView
@@ -25,9 +26,9 @@ class EventsFeedActivity : AppCompatActivity()  {
 
         // Sample list of events (replace this with your actual event data)
         val events = listOf(
-            Event("1","Event 1", "Crazy? I was crazy once. They locked me in a room. A rubber room! A rubber room with rats,and rats make me crazy. Crazy? I was crazy once. They locked me in a room. A rubber room! A rubber room with rats,and rats make me crazy. Crazy? I was crazy once. They locked me in a room. A rubber room! A rubber room with rats,and rats make me crazy. Crazy? I was crazy once. They locked me in a room. A rubber room! A rubber room with rats,and rats make me crazy. Crazy? I was crazy once. They locked me in a room. A rubber room! A rubber room with rats,and rats make me crazy. 1","09/09/2023","google.com",".com"),
-            Event("2","Event 1", "Description 1","09/09/2023","google.com","google.com"),
-            Event("3","Event 1", "Description 1","09/09/2023","google.com","google.com"),
+            Event("1","Event 1", "Description 1","09/09/2023","google.com",".com",""),
+            Event("2","Event 1", "Description 2","09/09/2023","google.com","google.com",""),
+            Event("3","Event 1", "Description 3","09/09/2023","google.com","google.com",""),
         )
 
         // Create an ArrayAdapter to populate the ListView with event names
