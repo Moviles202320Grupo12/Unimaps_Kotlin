@@ -21,7 +21,6 @@ class EventDetailsActivity : AppCompatActivity()  {
         // Populate UI elements with event details using View Binding
         // Populate other views...
         binding.eventNameTextView.text = event?.name
-        binding.eventDescriptionTextView.text = event?.description
         binding.eventDateTextView.text = event?.date
         binding.eventLocationTextView.text = event?.location
         binding.eventosDetails
