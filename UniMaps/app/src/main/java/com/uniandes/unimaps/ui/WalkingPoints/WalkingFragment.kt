@@ -13,9 +13,11 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.uniandes.unimaps.R
 import com.uniandes.unimaps.databinding.FragmentWpBinding
 import com.uniandes.unimaps.helpers.Network
+import com.uniandes.unimaps.ui.Login.LogInViewModel
 
 
 class WalkingFragment  : AppCompatActivity(){
@@ -31,10 +33,15 @@ class WalkingFragment  : AppCompatActivity(){
 
     private lateinit var binding: FragmentWpBinding
 
+    private lateinit var wpViewModel: WalkingViewModel
+
     override fun onCreate(
         savedInstanceState: Bundle?
     ) {
         super.onCreate(savedInstanceState)
+        // Inicializar el ViewModel
+        wpViewModel = ViewModelProvider(this).get(WalkingViewModel::class.java)
+
         //actionbar
         val actionbar = supportActionBar
         //set actionbar title
