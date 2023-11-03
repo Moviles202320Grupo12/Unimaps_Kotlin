@@ -1,10 +1,12 @@
 package com.uniandes.unimaps.asynctasks
 
+import android.util.ArrayMap
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.uniandes.unimaps.models.UserModel
+import com.uniandes.unimaps.ui.Events.Event
 import kotlinx.coroutines.tasks.await
 
 /**
@@ -89,6 +91,44 @@ class DBAsyncTask {
         }
     }
 
+    /**
+     * Función que trae todos los eventos desde la BD.
+     */
+    suspend fun getEventsCollection (): ArrayMap<String, Event> {
+        val eventMap = ArrayMap<String, Event>()
+
+        val dataSet: MutableList<Event> = mutableListOf()
+
+        try {
+            val snapshot = db.collection("events")
+                .get()
+                .await()
+
+            if (!snapshot.isEmpty) {
+                for (document in snapshot) {
+                    if (document.exists()) {
+                        val evento = document.toObject(Event::class.java)
+                        dataSet += evento
+                    }
+                }
+
+                // Crear un nuevo ArrayMap
+
+                // Llenar el ArrayMap con los elementos de la MutableList
+                for (event in dataSet) {
+                    eventMap[event.id] = event
+                }
+
+            } else {
+                Log.w("TAG", "No se encontraron documentos que coincidan")
+            }
+        } catch (exception: Exception) {
+            Log.e("TAG", "Error en la consulta: ${exception.message}")
+            throw exception
+        }
+
+        return eventMap;
+    }
 
 
 
