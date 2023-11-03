@@ -1,7 +1,8 @@
-package com.uniandes.unimaps
+package com.uniandes.unimaps.ui.Events
 
 import android.os.Parcel
 import android.os.Parcelable
+
 
 data class Event(
     val id: String, // An identifier for the event, you can choose a suitable type
@@ -9,9 +10,11 @@ data class Event(
     val description: String,
     val date: String, // You can use a suitable date representation, e.g., String or Date
     val location: String,
-    val url: String
+    val url: String,
+    val urlImage :String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
@@ -28,6 +31,7 @@ data class Event(
         parcel.writeString(location)
         parcel.writeString(id)
         parcel.writeString(url)
+        parcel.writeString(urlImage)
     }
 
     override fun describeContents(): Int {

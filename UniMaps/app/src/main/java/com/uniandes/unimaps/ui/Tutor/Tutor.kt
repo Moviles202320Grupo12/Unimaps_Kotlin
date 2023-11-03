@@ -1,4 +1,4 @@
-package com.uniandes.unimaps
+package com.uniandes.unimaps.ui.Tutor
 
 data class Tutor(
     val id: Int, // An identifier for the event, you can choose a suitable type

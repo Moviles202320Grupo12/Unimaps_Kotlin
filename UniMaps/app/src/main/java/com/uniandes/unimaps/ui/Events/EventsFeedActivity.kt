@@ -1,4 +1,4 @@
-package com.uniandes.unimaps
+package com.uniandes.unimaps.ui.Events
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.uniandes.unimaps.R
 
 class EventsFeedActivity : AppCompatActivity()  {
     private lateinit var listViewEvents: ListView
