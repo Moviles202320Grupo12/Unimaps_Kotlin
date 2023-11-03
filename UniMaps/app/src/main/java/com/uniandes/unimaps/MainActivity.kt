@@ -2,6 +2,7 @@ package com.uniandes.unimaps
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.w("TAG", "Error getting documents.", exception)
             }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

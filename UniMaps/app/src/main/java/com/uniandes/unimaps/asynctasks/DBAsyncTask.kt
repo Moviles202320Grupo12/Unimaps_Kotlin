@@ -130,6 +130,26 @@ class DBAsyncTask {
         return eventMap;
     }
 
+    suspend fun updateWalkingPoints(points: Int) {
+        try {
+            val db = FirebaseFirestore.getInstance()
+            val data = hashMapOf("points" to points)
+
+            // Realiza la operación de escritura en Firestore
+            db.collection("walking_points")
+                .document()
+                .set(data)
+                .await()
+
+            // La operación se ha completado con éxito
+            // Puedes agregar cualquier otro código de manejo aquí
+        } catch (exception: Exception) {
+            // Manejo de errores, como registro de errores
+            Log.e("TAG", "Error en la consulta: ${exception.message}")
+            // Puedes lanzar una excepción o manejarla según tus necesidades
+        }
+    }
+
 
 
 }
