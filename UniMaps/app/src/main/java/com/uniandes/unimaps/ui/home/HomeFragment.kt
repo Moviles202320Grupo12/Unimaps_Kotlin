@@ -1,12 +1,17 @@
 package com.uniandes.unimaps.ui.home
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -18,6 +23,10 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.uniandes.unimaps.R
 import com.uniandes.unimaps.databinding.FragmentHomeBinding
+import com.uniandes.unimaps.helpers.Network
+import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
@@ -57,8 +66,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
 
         // Get the SupportMapFragment and request notification when the map is ready to be used.
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-        mapFragment?.getMapAsync(this)
+        if (Network.checkConnectivity(requireContext()))
+        {
+            // Referencia al FrameLayout donde esta el mapa:
+            val layoutContenedorMapa = view.findViewById<FrameLayout>(R.id.contenedorMapa)
+
+            // Cambia la visibilidad del FrameLayout:
+            layoutContenedorMapa.visibility = View.VISIBLE
+
+
+            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+            mapFragment?.getMapAsync(this)
+        }
     }
 
     override fun onDestroyView() {

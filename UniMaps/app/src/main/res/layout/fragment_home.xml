@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#FFFFFF">
+    <FrameLayout
+        android:id="@+id/contenedorMapa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
     <!-- Mapa -->
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.HomeFragment" />
+        tools:context=".ui.home.HomeFragment"
+        />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="match_parent"
         android:layout_height="122dp"
         android:layout_gravity="bottom"
-        app:srcCompat="@drawable/visita_pagina_uniandes" />
+        app:srcCompat="@drawable/visita_pagina_uniandes"
+        />
+    </FrameLayout>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/errorMessageTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Mapa no disponible. Por favor, verifica tu conexión a Internet."
+        android:textSize="16sp" />
+
+</LinearLayout>

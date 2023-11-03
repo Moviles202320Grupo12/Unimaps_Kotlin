@@ -86,7 +86,7 @@ class LogInActivity : ComponentActivity() {
     }
 
     /**
-     * Función que
+     * Función que obtiene la version del sistema operativo:
      */
     private fun getAndroidVersion(): String? {
         val release = Build.VERSION.RELEASE
