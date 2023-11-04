@@ -1,11 +1,14 @@
 package com.uniandes.unimaps.ui.Events
 import android.content.Context
+import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.uniandes.unimaps.R
+import java.text.ParseException
+import java.util.Date
 
 class EventAdapter(
     context: Context,
@@ -30,7 +33,22 @@ class EventAdapter(
 
         eventNameTextView.text = currentEvent?.name
         eventDescriptionTextView.text = currentEvent?.description
-        eventDateTextView.text = currentEvent?.date.toString()
+
+        // Check if the date is not null before formatting
+        val date = currentEvent?.date
+        if (date != null) {
+            // Convert the Timestamp to a Date object
+            val dateObj = Date(date.seconds * 1000) // Convert seconds to milliseconds
+
+            // Format the date and time in "day/month/year hour:minute" format
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm")
+            val formattedDate = dateFormat.format(dateObj)
+            eventDateTextView.text = formattedDate
+        } else {
+            // Handle the case when the date is null, e.g., set text to "Date not available"
+            eventDateTextView.text = "Date not available"
+        }
+
         eventLocationTextView.text = currentEvent?.location
 
         return listItemView
