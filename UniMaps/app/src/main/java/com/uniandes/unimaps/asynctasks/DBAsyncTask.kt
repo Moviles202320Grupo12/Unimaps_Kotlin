@@ -97,31 +97,28 @@ class DBAsyncTask {
     suspend fun getEventsCollection (): ArrayMap<String, Event> {
         val eventMap = ArrayMap<String, Event>()
 
-        val dataSet: MutableList<Event> = mutableListOf()
-
         try {
-            val snapshot = db.collection("events")
-                .get()
+            db.collection("events")
+                .get().addOnSuccessListener { result ->
+                    try {
+                        for (document in result) {
+                            val event = document.toObject(Event::class.java)
+                            event.setId(document.id);
+                            eventMap[event.getId()] = event
+                            Log.d("TAG EVENTOS EXITO", "${document.id} => ${document.data}")
+                        }
+                    }
+                    catch (exception: Exception)
+                    {
+                        Log.w("TAG EVENTOS ERROR", "Error saving documents: ", exception)
+                    }
+
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("TAG EVENTOS ERROR", "Error getting documents: ", exception)
+                }
                 .await()
 
-            if (!snapshot.isEmpty) {
-                for (document in snapshot) {
-                    if (document.exists()) {
-                        val evento = document.toObject(Event::class.java)
-                        dataSet += evento
-                    }
-                }
-
-                // Crear un nuevo ArrayMap
-
-                // Llenar el ArrayMap con los elementos de la MutableList
-                for (event in dataSet) {
-                    eventMap[event.id] = event
-                }
-
-            } else {
-                Log.w("TAG", "No se encontraron documentos que coincidan")
-            }
         } catch (exception: Exception) {
             Log.e("TAG", "Error en la consulta: ${exception.message}")
             throw exception
