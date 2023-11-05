@@ -125,7 +125,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/register_social_google"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp"
+                android:id="@+id/googleAccess"/>
 
             <!-- Tercera vista -->
             <ImageView

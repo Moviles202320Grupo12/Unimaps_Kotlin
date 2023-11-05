@@ -12,7 +12,20 @@
           "package_name": "com.uniandes.unimaps"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "486804180100-hdb9cui61r82o6r8at208ibgl4c17168.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uniandes.unimaps",
+            "certificate_hash": "98f5662128407ea31616efed30f10f27b46c2e6a"
+          }
+        },
+        {
+          "client_id": "486804180100-bnttldc7tgtthmtbdh667u098j7foq7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBa-cJ-_TLX2MBoURAxpw3xe_Pp6frRz8M"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486804180100-bnttldc7tgtthmtbdh667u098j7foq7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

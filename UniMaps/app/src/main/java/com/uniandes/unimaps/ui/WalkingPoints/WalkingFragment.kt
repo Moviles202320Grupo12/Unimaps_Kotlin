@@ -47,7 +47,7 @@ class WalkingFragment  : AppCompatActivity(){
         val actionbar = supportActionBar
         //set actionbar title
         actionbar!!.title = "Walking Points"
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#000000")))
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
         //set back button
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)

@@ -4,10 +4,16 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.uniandes.unimaps.databinding.AccessBinding
 import com.uniandes.unimaps.ui.Login.LogInViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -16,6 +22,8 @@ import kotlinx.coroutines.launch
 
 
 class AccessActivity : AppCompatActivity() {
+    private lateinit var mAuth: FirebaseAuth
+
     // Esto hace el binding con la vista xml de Registro:
     private lateinit var binding: AccessBinding
 
@@ -23,6 +31,9 @@ class AccessActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //
+        mAuth = FirebaseAuth.getInstance()
 
         //actionbar
         val actionbar = supportActionBar
@@ -48,7 +59,6 @@ class AccessActivity : AppCompatActivity() {
                 /**
                  * Se utilizan corutinas para la parte del manejo de concurrencia de la aplicación:
                  */
-
 
                 // Inicializar el contexto de CoroutineScope:
                 val coroutineScope = CoroutineScope(Dispatchers.Main)
@@ -83,10 +93,57 @@ class AccessActivity : AppCompatActivity() {
             }
 
         })
+
+        // Configurar Google Sign - In:
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.client_id))
+            .requestEmail()
+            .build()
+
+        val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        binding.googleAccess.setOnClickListener{
+            mGoogleSignInClient.signOut()
+            startActivityForResult(mGoogleSignInClient.signInIntent, 13)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
+
+    @Deprecated("Deprecated in Java")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 13 && resultCode== RESULT_OK)
+        {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            val account = task.getResult(ApiException::class.java)
+            firebaseAuthWithGoogle(account.idToken!!)
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        mAuth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    val intent = Intent(this@AccessActivity, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(this@AccessActivity, "Authentication Failed.", Toast.LENGTH_SHORT).show()
+                }
+            }.addOnFailureListener{
+                val toast = Toast.makeText(applicationContext, "Error de autenticacion con Google", Toast.LENGTH_LONG)
+                toast.show()
+            }
+
+    }
+
+
+
+
 }

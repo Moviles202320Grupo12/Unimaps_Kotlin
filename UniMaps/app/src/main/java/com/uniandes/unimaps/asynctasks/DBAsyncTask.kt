@@ -147,6 +147,47 @@ class DBAsyncTask {
         }
     }
 
+    suspend fun verifyUserRegister (email: String): Boolean {
+        var canRegister = false;
+        try {
+            val snapshot = db.collection("users")
+                .whereEqualTo("email", email.trim())
+                .get()
+                .await()
+
+            if (snapshot.isEmpty) {
+                canRegister = true;
+            } else {
+                Log.w("TAG", "No se encontraron documentos que coincidan")
+            }
+        } catch (exception: Exception) {
+            Log.e("TAG", "Error en la consulta: ${exception.message}")
+            throw exception
+        }
+        return canRegister;
+    }
+
+    suspend fun registerNewUSer (user: UserModel): Boolean {
+        var registroConExito = false;
+        try {
+            db.collection("users")
+                .add(user)
+                .addOnSuccessListener { documentReference ->
+                    // La operación de guardado fue exitosa
+                    registroConExito = true
+                    Log.d("TAG", "Usuario registrdo con ID: ${documentReference.id}")
+                }
+                .addOnFailureListener { e ->
+                    // Ocurrió un error al intentar guardar el documento
+                    Log.w("TAG", "Error al guardar el documento", e)
+                }.await()
+        } catch (exception: Exception) {
+            Log.e("TAG", "Error en la consulta: ${exception.message}")
+            throw exception
+        }
+        return registroConExito;
+    }
+
 
 
 }
