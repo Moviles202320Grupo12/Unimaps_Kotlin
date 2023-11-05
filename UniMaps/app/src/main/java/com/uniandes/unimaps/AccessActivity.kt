@@ -13,6 +13,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.uniandes.unimaps.databinding.AccessBinding
 import com.uniandes.unimaps.ui.Login.LogInViewModel
@@ -69,8 +70,7 @@ class AccessActivity : AppCompatActivity() {
                         val puedeIngresar = loginViewModel.verifyUserLogIn(username, password)
                         if(puedeIngresar.isNotEmpty())
                         {
-                            val intent = Intent(this@AccessActivity, MainActivity::class.java)
-                            startActivity(intent)
+                            signInWithEmailAndPassword(username, password)
                         }
                         else
                         {
@@ -141,6 +141,25 @@ class AccessActivity : AppCompatActivity() {
                 toast.show()
             }
 
+    }
+
+
+    private fun signInWithEmailAndPassword(email: String, password: String) {
+        mAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Inicio de sesión exitoso, puedes redirigir al usuario a la actividad principal o realizar otras acciones
+                    val intent = Intent(this@AccessActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    // Agregar aquí la lógica para redirigir al usuario
+                } else {
+                    // Error en el inicio de sesión, muestra un mensaje de error al usuario
+                    Toast.makeText(this, "Error en el inicio de sesión. Verifica tus credenciales.", Toast.LENGTH_SHORT).show()
+                }
+            }.addOnFailureListener{
+                val toast = Toast.makeText(applicationContext, "Error de autenticacion con contraseña", Toast.LENGTH_LONG)
+                toast.show()
+            }
     }
 
 

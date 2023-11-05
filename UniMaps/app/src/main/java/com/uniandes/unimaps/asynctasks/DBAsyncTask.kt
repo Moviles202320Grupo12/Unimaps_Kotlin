@@ -167,6 +167,9 @@ class DBAsyncTask {
         return canRegister;
     }
 
+    /**
+     * Función que
+     */
     suspend fun registerNewUSer (user: UserModel): Boolean {
         var registroConExito = false;
         try {

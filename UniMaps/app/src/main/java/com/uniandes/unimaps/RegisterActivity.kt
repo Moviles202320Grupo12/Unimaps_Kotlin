@@ -9,12 +9,15 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.uniandes.unimaps.databinding.RegistroBinding
 import com.uniandes.unimaps.ui.Login.LogInViewModel
 import com.uniandes.unimaps.ui.register.RegisterViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -23,8 +26,14 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var registerViewModel: RegisterViewModel
 
+    // Variable de Firebase:
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Inicializar auth de Firebase:
+        auth = FirebaseAuth.getInstance()
 
         // Inicializar el ViewModel
         registerViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
@@ -63,11 +72,10 @@ class RegisterActivity : AppCompatActivity() {
                             {
                                 if(registerViewModel.registerNewUSer(fullName, username, phoneNumber, email, password))
                                 {
-                                    val toast = Toast.makeText(applicationContext, "Registro Exitoso", Toast.LENGTH_LONG)
-                                    toast.show()
+                                    createAccount(email, password)
                                     val intent = Intent(this@RegisterActivity, AccessActivity::class.java)
                                     startActivity(intent)
-
+                                    finish()
                                 }
                                 else
                                 {
@@ -106,5 +114,27 @@ class RegisterActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    /**
+     * Función que crea una nueva cuenta en Firebase auth con la info nuevo usuario.
+     */
+    private suspend fun createAccount(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Registro exitoso, puedes redirigir al usuario a la actividad principal o realizar otras acciones
+                    val user: FirebaseUser? = auth.currentUser
+                    Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                    // Agregar aquí la lógica para redirigir al usuario
+                } else {
+                    Log.w("TAG ERROR REGISTRO", "Error al crear cuenta de usuario: ${email}, Error: ${task.exception}")
+                    // Error en el registro, muestra un mensaje de error al usuario
+                    Toast.makeText(this, "Ocurrio un error en el registro: ${task.exception?.message}}", Toast.LENGTH_LONG).show()
+                }
+            }.addOnFailureListener{exception ->
+                Log.w("TAG ERROR REGISTRO", "Error al crear cuenta de usuario: ${email}, Error: ${exception.message}")
+                Toast.makeText(this, "Error en el registro!", Toast.LENGTH_LONG).show()
+            }.await()
     }
 }
