@@ -40,7 +40,7 @@ class TutorAdapter(
 
         tutorNameTextView.text = currentTutor?.name
         tutorMateriaTextView.text = currentTutor?.materia
-        tutorDateTextView.text = currentTutor?.date
+        tutorDateTextView.text = currentTutor?.date.toString()
         tutorLocationTextView.text = currentTutor?.location
         tutorDescriptionTextView.text= currentTutor?.description
 

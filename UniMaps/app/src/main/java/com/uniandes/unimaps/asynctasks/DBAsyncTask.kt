@@ -7,6 +7,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.uniandes.unimaps.models.UserModel
 import com.uniandes.unimaps.ui.Events.Event
+import com.uniandes.unimaps.ui.Tutor.Tutor
 import kotlinx.coroutines.tasks.await
 
 /**
@@ -191,6 +192,38 @@ class DBAsyncTask {
         return registroConExito;
     }
 
+    suspend fun getTutorCollection(): ArrayMap<String, Tutor> {
+        val tutorMap = ArrayMap<String, Tutor>()
+
+        try {
+            db.collection("tutors")
+                .get().addOnSuccessListener { result ->
+                    try {
+                        for (document in result) {
+                            val tutor = document.toObject(Tutor::class.java)
+                            tutor.setId(document.id);
+                            tutorMap[tutor.getId()] = tutor
+                            Log.d("TAG tutor EXITO", "${document.id} => ${document.data}")
+                        }
+                    }
+                    catch (exception: Exception)
+                    {
+                        Log.w("TAG tutor ERROR", "Error saving documents: ", exception)
+                    }
+
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("TAG tutor ERROR", "Error getting documents: ", exception)
+                }
+                .await()
+
+        } catch (exception: Exception) {
+            Log.e("TAG", "Error en la consulta: ${exception.message}")
+            throw exception
+        }
+
+        return tutorMap;
+    }
 
 
 }
