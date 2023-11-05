@@ -55,15 +55,15 @@
             android:label="@string/title_activity_event_feed"
             android:theme="@style/Theme.UniMaps.NoActionBar">
         </activity>
+
         <activity
-            android:name=".ui.Events.EventDetailsActivity"
-            android:label="Event Details"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name=".ui.Events.EventDetailActivity"
+            android:exported="true"
+            android:label="eventDetail"
+            android:theme="@style/Theme.UniMaps.NoActionBar">
         </activity>
+
+
 
         <activity
             android:name=".ui.Tutor.TutorsSearchActivity"

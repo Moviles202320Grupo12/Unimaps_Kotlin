@@ -1,5 +1,6 @@
 package com.uniandes.unimaps.ui.Events
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -49,6 +50,12 @@ class EventsFeedActivity : AppCompatActivity()  {
             // Implement filter logic here
             // You can update the 'events' list based on the filter criteria and then update the adapter
             Toast.makeText(this, "Filter button clicked", Toast.LENGTH_SHORT).show()
+        }
+        listViewEvents.setOnItemClickListener { _, _, position, _ ->
+            val selectedEvent = events[position] // Get the selected event
+            val intent = Intent(this, EventDetailActivity::class.java)
+            intent.putExtra("selectedEvent", selectedEvent)
+            startActivity(intent)
         }
 
         // Handle search
