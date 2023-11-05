@@ -3,12 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/eventosfeed"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/gray_forms"
     android:textAlignment="center"
     android:textDirection="firstStrongRtl"
     android:visibility="visible">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/FilterButton1"
@@ -31,8 +39,8 @@
         android:id="@+id/eventostitle"
         android:layout_width="394dp"
         android:layout_height="80dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp"
         android:background="@color/gray_forms"
         android:backgroundTint="@color/gray_forms"
         android:fontFamily="@font/urbanist_semi_bold"

@@ -1,15 +1,19 @@
 package com.uniandes.unimaps.ui.Events
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.uniandes.unimaps.R
 import java.util.Date
@@ -19,6 +23,17 @@ class EventDetailActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.event_detail)
+
+        //actionbar
+        val myToolbar: Toolbar = findViewById(R.id.my_toolbar)
+        setSupportActionBar(myToolbar)
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //set actionbar title
+        myToolbar.title = "Detalle de Evento"
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
+
+
         val selectedEvent = intent.getParcelableExtra<Event>("selectedEvent")
 
         if (selectedEvent != null) {
@@ -81,6 +96,18 @@ class EventDetailActivity : AppCompatActivity() {
             // Handle the case where there is no app to handle the URL
             // You can show a toast message or display an error to the user
             Toast.makeText(this, "No app can handle this request.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Realiza la acción que desees cuando se presiona el botón de "Atrás"
+                onBackPressed() // Esto es común para volver a la actividad anterior
+                finish()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 }

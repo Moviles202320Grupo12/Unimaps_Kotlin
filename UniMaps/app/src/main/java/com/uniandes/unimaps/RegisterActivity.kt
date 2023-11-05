@@ -117,7 +117,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     /**
-     * Función que crea una nueva cuenta en Firebase auth con la info nuevo usuario.
+     * Función asincrona que crea una nueva cuenta en Firebase auth con la info nuevo usuario.
      */
     private suspend fun createAccount(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
