@@ -42,8 +42,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description: "
+                android:textColor="#020202"
                 android:textSize="20sp"
-                android:textColor="#020202" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/eventDescriptionTextView"
@@ -62,8 +63,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Location: "
+                android:textColor="#020202"
                 android:textSize="20sp"
-                android:textColor="#020202" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/eventLocationTextView"
@@ -82,8 +84,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date: "
+                android:textAlignment="textStart"
+                android:textColor="#020202"
                 android:textSize="20sp"
-                android:textColor="#020202" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/eventDateTextView"
