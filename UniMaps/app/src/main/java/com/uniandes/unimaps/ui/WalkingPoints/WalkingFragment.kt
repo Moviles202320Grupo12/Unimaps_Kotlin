@@ -9,6 +9,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -18,6 +19,9 @@ import com.uniandes.unimaps.R
 import com.uniandes.unimaps.databinding.FragmentWpBinding
 import com.uniandes.unimaps.helpers.Network
 import com.uniandes.unimaps.ui.Login.LogInViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class WalkingFragment  : AppCompatActivity(){
@@ -56,6 +60,7 @@ class WalkingFragment  : AppCompatActivity(){
         // Inicializa el sensorManager y el sensor
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
         if (stepSensor == null) {
             // Muestra un mensaje al usuario
             val toast = Toast.makeText(this, "Sensor de contador de pasos no disponible en este dispositivo", Toast.LENGTH_LONG)
@@ -64,28 +69,22 @@ class WalkingFragment  : AppCompatActivity(){
             val toast = Toast.makeText(this, "Activo!", Toast.LENGTH_LONG)
             toast.show()
         }
+        // Inicializa las preferencias compartidas
+        sharedPreferences = getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
 
-        val net=Network.checkConnectivity(this)
-        if (net){
+        // Recupera el valor almacenado de pasos
+        // Recupera los datos almacenados en SharedPreferences
+        currentSteps = sharedPreferences.getInt("stepCount", 0)
 
-        }else{
-            val toast = Toast.makeText(this, "Ups! No cuentas con coneccion en este momento, conectate para subir tus puntos", Toast.LENGTH_LONG)
-            toast.show()
-        }
+
 
         textViewSteps = root.findViewById(R.id.textViewPuntos)
         textKm=root.findViewById(R.id.textViewKm)
         textMin=root.findViewById(R.id.textViewMin)
         textBonos=root.findViewById(R.id.textViewBonos)
         textCal=root.findViewById(R.id.textViewCal)
-
-        // Inicializa las preferencias compartidas
-        sharedPreferences = getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
-
-        // Recupera el valor almacenado de pasos
-        // Recupera los datos almacenados en SharedPreferences
         loadCachedData()
-        currentSteps = sharedPreferences.getInt("stepCount", 0)
+
 
         setContentView(binding.root)
     }
@@ -118,6 +117,26 @@ class WalkingFragment  : AppCompatActivity(){
         val editor = sharedPreferences.edit()
         editor.putInt("stepCount", currentSteps+newSteps)
         editor.apply()
+
+        val net=Network.checkConnectivity(this)
+        if (net){
+            // Inicializar el contexto de CoroutineScope:
+            val coroutineScope = CoroutineScope(Dispatchers.Main)
+            coroutineScope.launch {
+                try {
+                    wpViewModel.updateWalkingPoints(currentSteps+newSteps)
+                    Log.d("TAG", "Walking Points Actualizados!")
+                }
+                catch  (exception: Exception)
+                {
+                    Log.e("TAG", "Error en la actualizacion de los walking points: ${exception.message}")
+                }
+            }
+
+        }else{
+            val toast = Toast.makeText(this, "Ups! No cuentas con coneccion en este momento, conectate para subir tus puntos", Toast.LENGTH_LONG)
+            toast.show()
+        }
     }
 
     private val stepListener = object : SensorEventListener {
