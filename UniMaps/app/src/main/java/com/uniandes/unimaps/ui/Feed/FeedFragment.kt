@@ -17,6 +17,7 @@ import com.uniandes.unimaps.ui.Events.EventsFeedActivity
 import com.uniandes.unimaps.R
 import com.uniandes.unimaps.RegisterActivity
 import com.uniandes.unimaps.databinding.FragmentFeedBinding
+import com.uniandes.unimaps.ui.Tutor.TutorsSearchActivity
 import com.uniandes.unimaps.ui.WalkingPoints.WalkingFragment
 import com.uniandes.unimaps.ui.home.HomeFragment
 
@@ -43,6 +44,20 @@ class FeedFragment : Fragment() {
 
         // Configurar Image View de Eventos:
         // Configurar Image View:
+        val eventButton =root.findViewById<Button>(R.id.buttonEventFeed)
+        eventButton.setOnClickListener {
+            val intent = Intent (getActivity(), EventsFeedActivity::class.java)
+            getActivity()?.startActivity(intent)
+
+        }
+
+        val tutorButton =root.findViewById<Button>(R.id.buttonTutorSearch)
+        tutorButton.setOnClickListener {
+            val intent = Intent (getActivity(), TutorsSearchActivity::class.java)
+            getActivity()?.startActivity(intent)
+
+        }
+
         val myImageView = root.findViewById<ImageView>(R.id.imageView9)
         myImageView.setOnClickListener {
             val intent = Intent (getActivity(), EventsFeedActivity::class.java)

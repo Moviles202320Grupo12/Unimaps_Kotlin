@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="92dp"
-            android:text="EVENTS"
+            android:text="Events &amp; Tutors"
             android:textSize="22dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,21 +57,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            app:srcCompat="@drawable/img_1"
+            android:layout_marginTop="92dp"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="92dp"/>
+            app:srcCompat="@drawable/img_1" />
 
         <ImageView
             android:id="@+id/imageView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            app:srcCompat="@drawable/img_2"
+            android:layout_marginTop="200dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="200dp"/>
+            app:srcCompat="@drawable/img_2" />
 
         <TextView
             android:id="@+id/textView10"
@@ -126,6 +126,33 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="405dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonEventFeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="148dp"
+            android:background="@color/yellow"
+
+            android:text="    EVENTS FEED    "
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/imageView9"
+            app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonTutorSearch"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="68dp"
+            android:layout_marginEnd="160dp"
+            android:background="@color/yellow"
+            android:text="    Tutors    "
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="@+id/imageView10" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button7"

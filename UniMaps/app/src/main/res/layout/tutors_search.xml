@@ -10,28 +10,14 @@
     android:textDirection="firstStrongRtl"
     android:visibility="visible">
 
-    <Button
-        android:id="@+id/FilterButton2"
-        android:layout_width="127dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="12dp"
-        android:backgroundTint="@color/brown"
-        android:fontFamily="@font/urbanist_semi_bold"
-        android:text="Filtrar"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/editTextSearch2"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Toolbar for the tutor information view -->
 
     <TextView
         android:id="@+id/tutor_title"
-        android:layout_width="394dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="35dp"
+        android:layout_width="371dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="12dp"
         android:background="@color/gray_forms"
         android:backgroundTint="@color/gray_forms"
         android:fontFamily="@font/urbanist_semi_bold"
@@ -41,8 +27,34 @@
         android:textSize="34sp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/FilterButton2"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        app:layout_constraintVertical_bias="0.478"
+        tools:layout_editor_absoluteX="31dp" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="409dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="52dp"
+        android:background="@color/yellow"
+        android:titleTextColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/FilterButton2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/FilterButton2"
+        android:layout_width="127dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="@color/yellow"
+        android:fontFamily="@font/urbanist_semi_bold"
+        android:text="Filtrar"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextSearch2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView

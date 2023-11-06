@@ -2,4 +2,11 @@
 <resources>
     <item name="eventDateTextView" type="id" />
     <item name="eventLocationTextView" type="id" />
+    <item name="tutorInfoSpecialization" type="id" />
+    <item name="tutorInfoDescription" type="id" />
+    <item name="tutorInfoContact" type="id" />
+    <item name="tutorInfoRequestButton" type="id" />
+    <item name="tutorInfoSaveButton" type="id" />
+    <item name="tutorInfoName" type="id" />
+    <item name="tutorInfoImage" type="id" />
 </resources>

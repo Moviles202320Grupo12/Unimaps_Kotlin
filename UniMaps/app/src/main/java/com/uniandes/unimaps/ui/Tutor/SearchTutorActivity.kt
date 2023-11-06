@@ -1,15 +1,20 @@
 package com.uniandes.unimaps.ui.Tutor
 
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
+import com.uniandes.unimaps.R
 import com.uniandes.unimaps.R.*
-import com.uniandes.unimaps.ui.Events.EventAdapter
+import com.uniandes.unimaps.ui.Events.EventDetailActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,11 +39,30 @@ class TutorsSearchActivity : AppCompatActivity() {
         editTextSearch = findViewById(id.editTextSearch2)
         buttonFilter = findViewById(id.FilterButton2)
 
+        //actionbar
+        val myToolbar: Toolbar = findViewById(id.my_toolbar)
+        setSupportActionBar(myToolbar)
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //set actionbar title
+        myToolbar.title = "Tutores"
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
         tutores= mutableListOf()
 
         val adapter=TutorAdapter(this,tutores)
 
         listViewTutor.adapter=adapter
+
+        listViewTutor.setOnItemClickListener { _, _, position, _ ->
+            val selectedTutor = tutores[position] // Get the selected event
+            val intent = Intent(this, EventDetailActivity::class.java)
+            intent.putExtra("selectedTutor", selectedTutor)
+            startActivity(intent)
+        }
+
+
+
+
 
         editTextSearch.addTextChangedListener { text ->
             val searchText= text.toString()
