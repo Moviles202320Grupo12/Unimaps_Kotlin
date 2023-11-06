@@ -1,6 +1,7 @@
 package com.uniandes.unimaps.ui.WalkingPoints
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,6 +12,7 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +21,7 @@ import com.uniandes.unimaps.R
 import com.uniandes.unimaps.databinding.FragmentWpBinding
 import com.uniandes.unimaps.helpers.Network
 import com.uniandes.unimaps.ui.Login.LogInViewModel
+import com.uniandes.unimaps.ui.Tutor.TutorsSearchActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,6 +37,7 @@ class WalkingFragment  : AppCompatActivity(){
     private lateinit var textMin : TextView
     private lateinit var textBonos : TextView
     private var currentSteps: Int = 0
+    private var cupons: Int = 0
     private var newSteps: Int = 0
 
     private lateinit var binding: FragmentWpBinding
@@ -75,6 +79,7 @@ class WalkingFragment  : AppCompatActivity(){
         // Recupera el valor almacenado de pasos
         // Recupera los datos almacenados en SharedPreferences
         currentSteps = sharedPreferences.getInt("stepCount", 0)
+        cupons = sharedPreferences.getInt("cupons", 0)
 
 
 
@@ -84,6 +89,22 @@ class WalkingFragment  : AppCompatActivity(){
         textBonos=root.findViewById(R.id.textViewBonos)
         textCal=root.findViewById(R.id.textViewCal)
         loadCachedData()
+
+        val cuponButton =root.findViewById<Button>(R.id.buttonCupon)
+        cuponButton.setOnClickListener {
+            if ((currentSteps)>=10000){
+                currentSteps-=10000
+                cupons+=1
+                textBonos.text = ((cupons).toInt()).toString()
+                val toast = Toast.makeText(this, "Cupon reclamado! revisa tu correo", Toast.LENGTH_LONG)
+                toast.show()
+            }else{
+                val toast = Toast.makeText(this, "Debes tener minimo 10000 puntos para reclamar un cupon", Toast.LENGTH_LONG)
+                toast.show()
+
+            }
+
+        }
 
 
         setContentView(binding.root)
@@ -103,7 +124,7 @@ class WalkingFragment  : AppCompatActivity(){
         textViewSteps.text = currentSteps.toString()
         textCal.text = ((currentSteps.toFloat() * 0.05).toInt()).toString()
         textKm.text = ((currentSteps.toFloat() * 0.0005).toInt()).toString()
-        textBonos.text = ((currentSteps.toFloat() * 0.00001).toInt()).toString()
+        textBonos.text = ((cupons).toInt()).toString()
         textMin.text = ((currentSteps.toFloat() * 0.005).toInt()).toString()
     }
 
@@ -116,6 +137,7 @@ class WalkingFragment  : AppCompatActivity(){
 
         val editor = sharedPreferences.edit()
         editor.putInt("stepCount", currentSteps+newSteps)
+        editor.putInt("cupons", cupons)
         editor.apply()
 
         val net=Network.checkConnectivity(this)
