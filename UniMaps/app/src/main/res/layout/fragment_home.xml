@@ -1,61 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:background="#FFFFFF">
-    <FrameLayout
-        android:id="@+id/contenedorMapa"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:orientation="vertical"
+        android:layout_weight="93"
+        android:layout_height="0dp"
+        android:id="@+id/contenedorMapa">
+
     <!-- Mapa -->
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment"
-        />
+        android:layout_height="match_parent"/>
 
-    <ImageView
-        android:id="@+id/imageView6"
+    </LinearLayout>
+
+    <!-- Menú -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="122dp"
-        android:layout_gravity="bottom"
-        app:srcCompat="@drawable/visita_pagina_uniandes"
-        />
-    </FrameLayout>
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:background="#FFFFFF"
+        android:gravity="bottom"
+        android:orientation="horizontal">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/menu_home"
+            android:id="@+id/home_button"/>
 
-        <TextView
-            android:id="@+id/errorMessageTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:text="Mapa no disponible. Por favor, verifica tu conexión a Internet."
-            android:textSize="25dp"
-            android:layout_above="@id/loginButton"
-            android:layout_centerHorizontal="true" />
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_walking"
+            android:id="@+id/wp_button"/>
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/yellow"
-            android:fontFamily="@font/urbanist_semi_bold"
-            android:text="Regresar"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:layout_centerInParent="true" />
-
-    </RelativeLayout>
-
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_date"
+            android:id="@+id/search_button"/>
+    </LinearLayout>
 </LinearLayout>

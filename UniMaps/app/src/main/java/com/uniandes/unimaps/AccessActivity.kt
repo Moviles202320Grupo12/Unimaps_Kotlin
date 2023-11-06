@@ -13,9 +13,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.uniandes.unimaps.databinding.AccessBinding
+import com.uniandes.unimaps.models.UserModel
 import com.uniandes.unimaps.ui.Login.LogInViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -129,6 +129,7 @@ class AccessActivity : AppCompatActivity() {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    loginViewModel.updateWaysLogIn(LogInViewModel.LOG_IN_WAY_GOOGLE);
                     // Sign in success, update UI with the signed-in user's information
                     val intent = Intent(this@AccessActivity, MainActivity::class.java)
                     startActivity(intent)
@@ -148,6 +149,7 @@ class AccessActivity : AppCompatActivity() {
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    loginViewModel.updateWaysLogIn(LogInViewModel.LOG_IN_WAY_EMAIL);
                     // Inicio de sesión exitoso, puedes redirigir al usuario a la actividad principal o realizar otras acciones
                     val intent = Intent(this@AccessActivity, MainActivity::class.java)
                     startActivity(intent)

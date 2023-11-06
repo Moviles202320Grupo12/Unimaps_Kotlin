@@ -7,6 +7,11 @@ import com.uniandes.unimaps.models.UserModel
 
 class LogInViewModel : ViewModel() {
 
+    companion object {
+        val LOG_IN_WAY_GOOGLE: String = "Google"
+        val LOG_IN_WAY_EMAIL: String = "Email Auth";
+    }
+
     private var conexionBD = DBAsyncTask();
 
     suspend fun verifyUserLogIn (email: String, password: String): MutableList<UserModel> {
@@ -16,6 +21,11 @@ class LogInViewModel : ViewModel() {
 
     suspend fun storeAndroidVersion (androidVersion: String) {
         conexionBD.storeAndroidVersion(androidVersion);
+    }
+
+    fun updateWaysLogIn(login_form: String)
+    {
+        conexionBD.updateWaysLogIn(login_form)
     }
 
 }

@@ -91,6 +91,6 @@ class LogInActivity : ComponentActivity() {
     private fun getAndroidVersion(): String? {
         val release = Build.VERSION.RELEASE
         val sdkVersion = Build.VERSION.SDK_INT
-        return "Android SDK: $sdkVersion, version: $release)"
+        return "Android SDK: $sdkVersion, version: $release"
     }
 }

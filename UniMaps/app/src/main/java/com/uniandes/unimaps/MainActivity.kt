@@ -1,6 +1,7 @@
 package com.uniandes.unimaps
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.navigation.NavigationView
@@ -12,12 +13,17 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.uniandes.unimaps.databinding.ActivityMainBinding
+import com.uniandes.unimaps.models.UserModel
 
 
 class MainActivity : AppCompatActivity() {
+
+    // Preferencias:
+    var prefs: SharedPreferences? = null
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -38,6 +44,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LogInActivity::class.java))
             finish()
         }
+        else
+        {
+            saveUserInfo();
+        }
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -45,11 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        binding.appBarMain.fab.setOnClickListener {
-            // Manda a ventana temp:
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
@@ -65,6 +71,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun saveUserInfo() {
+        // Guardar preferencias para cada vez que se inicie sesion:
+        prefs = getSharedPreferences("com.uniandes.unimaps", MODE_PRIVATE);
+        prefs!!.edit().putString("userUid", auth.currentUser?.uid).apply()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
@@ -75,4 +87,11 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    // Método para cerrar sesión
+    fun logout() {
+        auth.signOut()
+        finish()
+    }
+
 }

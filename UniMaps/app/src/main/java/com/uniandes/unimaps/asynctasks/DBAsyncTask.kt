@@ -16,26 +16,10 @@ import kotlinx.coroutines.tasks.await
  */
 class DBAsyncTask {
 
-    private var currentUser: UserModel? = null
-
     // Conexion a base de datos:
     private val db = Firebase.firestore
 
     // Método para verificar si el usuario está autenticado
-    fun isUserAuthenticated(): Boolean {
-        return currentUser != null
-    }
-
-    // Método para obtener el usuario actual después del inicio de sesión
-    fun getCurrentUser(): UserModel? {
-        return currentUser
-    }
-
-    // Método para cerrar sesión
-    fun logout() {
-        currentUser = null
-    }
-
 
     /**
      * Función asincrona de verificacion de log in con info desde base de datos.
@@ -54,7 +38,6 @@ class DBAsyncTask {
                 for (document in snapshot) {
                     if (document.exists()) {
                         val usuario = document.toObject(UserModel::class.java)
-                        currentUser = usuario
                         dataSet += usuario
                     }
                 }
@@ -223,6 +206,24 @@ class DBAsyncTask {
         }
 
         return tutorMap;
+    }
+
+     fun updateWaysLogIn(login_form: String) {
+        try {
+            val db = FirebaseFirestore.getInstance()
+            val data = hashMapOf("login_from" to login_form)
+
+            // Realiza la operación de escritura en Firestore
+            db.collection("ways_login")
+                .document()
+                .set(data)
+
+            // La operación se ha completado con éxito
+            // Puedes agregar cualquier otro código de manejo aquí
+        } catch (exception: Exception) {
+            // Manejo de errores, como registro de errores
+            Log.e("TAG", "Error en la consulta: ${exception.message}")
+        }
     }
 
 
