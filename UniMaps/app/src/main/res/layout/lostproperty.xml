@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lostproperty"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_forms"
+    android:textAlignment="center"
+    android:textDirection="firstStrongRtl"
+    android:visibility="visible">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/FilterButton1"
+        android:layout_width="127dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="2dp"
+        android:backgroundTint="@color/yellow"
+        android:fontFamily="@font/urbanist_semi_bold"
+        android:text="Filtrar"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/editTextSearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/objectstitle" />
+
+    <TextView
+        android:id="@+id/objectstitle"
+        android:layout_width="394dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp"
+        android:background="@color/gray_forms"
+        android:backgroundTint="@color/gray_forms"
+        android:fontFamily="@font/urbanist_semi_bold"
+        android:text="Objetos Encontrados"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#0B0A0A"
+        android:textSize="34sp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/listViewObject"
+        android:layout_width="362dp"
+        android:layout_height="538dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="5dp"
+        android:background="@color/gray_form_border"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FilterButton1" />
+
+    <EditText
+        android:id="@+id/editTextSearch"
+        style="@android:style/Widget.Material.SearchView"
+        android:layout_width="239dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/gray_form_border"
+        android:hint="Buscar Objeto"
+        android:showDividers="middle|beginning|end"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/FilterButton1"
+        app:layout_constraintTop_toBottomOf="@+id/objectstitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
