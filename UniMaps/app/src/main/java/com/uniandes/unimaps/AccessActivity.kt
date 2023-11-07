@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -93,6 +94,17 @@ class AccessActivity : AppCompatActivity() {
             }
 
         })
+
+        // Configurar Text View de Registro:
+        val textView = findViewById<TextView>(R.id.registro_text)
+
+        textView.setOnClickListener {
+            // Agrega aquí el código que deseas ejecutar cuando se hace clic en el TextView
+            // Por ejemplo, puedes abrir una nueva actividad, mostrar un mensaje, etc.
+            // Por ejemplo, abrir una nueva actividad:
+            val intent = Intent(this@AccessActivity, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
         // Configurar Google Sign - In:
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

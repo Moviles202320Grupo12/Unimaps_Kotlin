@@ -113,14 +113,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="70dp">
 
-            <!-- Primera vista -->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/register_social_instagram"
-                android:layout_marginRight="16dp"/>
-
-            <!-- Segunda vista -->
+            <!-- Auth con Google -->
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -128,11 +121,6 @@
                 android:layout_marginRight="16dp"
                 android:id="@+id/googleAccess"/>
 
-            <!-- Tercera vista -->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/register_social_apple" />
         </LinearLayout>
 
         <!-- Footer -->
@@ -150,6 +138,7 @@
                 android:text="No tienes una cuenta?"
                 android:textColor="@color/black" />
             <TextView
+                android:id="@+id/registro_text"
                 android:fontFamily="@font/urbanist_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
