@@ -1,18 +1,16 @@
 package com.uniandes.unimaps.ui.home
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -76,6 +74,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             getActivity()?.startActivity(intent)
         }
 
+        // Boton de error en caso de ser necesario:
+        val goBackButton =root.findViewById<Button>(R.id.back_button)
+        goBackButton.setOnClickListener {
+            val intent = Intent (getActivity(), MainActivity::class.java)
+            getActivity()?.startActivity(intent)
+
+        }
+
         return root
     }
 
@@ -85,15 +91,22 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         // Get the SupportMapFragment and request notification when the map is ready to be used.
         if (Network.checkConnectivity(requireContext()))
         {
+            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+            mapFragment?.getMapAsync(this)
+        }
+        else
+        {
+            // Referencia al FrameLayout donde esta el error:
+            val layoutContenedorError = view.findViewById<RelativeLayout>(R.id.contenedorError)
+
+            // Cambia la visibilidad del FrameLayout:
+            layoutContenedorError.visibility = View.VISIBLE
+
             // Referencia al FrameLayout donde esta el mapa:
             val layoutContenedorMapa = view.findViewById<LinearLayout>(R.id.contenedorMapa)
 
             // Cambia la visibilidad del FrameLayout:
-            layoutContenedorMapa.visibility = View.VISIBLE
-
-
-            val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-            mapFragment?.getMapAsync(this)
+            layoutContenedorMapa.visibility = View.GONE
         }
     }
 

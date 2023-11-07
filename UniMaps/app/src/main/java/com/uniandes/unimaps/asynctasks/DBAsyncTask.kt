@@ -111,10 +111,12 @@ class DBAsyncTask {
         return eventMap;
     }
 
-    suspend fun updateWalkingPoints(points: Int) {
+    suspend fun updateWalkingPoints(userUID: String, points: Int, coupons: Int) {
         try {
             val db = FirebaseFirestore.getInstance()
-            val data = hashMapOf("points" to points)
+            val data = hashMapOf("user_uid" to userUID,
+                                 "points" to points,
+                                 "coupons" to coupons)
 
             // Realiza la operación de escritura en Firestore
             db.collection("walking_points")

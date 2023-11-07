@@ -1,7 +1,6 @@
 package com.uniandes.unimaps.ui.WalkingPoints
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -20,8 +19,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.uniandes.unimaps.R
 import com.uniandes.unimaps.databinding.FragmentWpBinding
 import com.uniandes.unimaps.helpers.Network
-import com.uniandes.unimaps.ui.Login.LogInViewModel
-import com.uniandes.unimaps.ui.Tutor.TutorsSearchActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,7 +33,7 @@ class WalkingFragment  : AppCompatActivity(){
     private lateinit var textKm : TextView
     private lateinit var textMin : TextView
     private lateinit var textBonos : TextView
-    private var currentSteps: Int = 0
+    private var currentSteps: Int = 990
     private var cupons: Int = 0
     private var newSteps: Int = 0
 
@@ -128,8 +125,8 @@ class WalkingFragment  : AppCompatActivity(){
         textMin.text = ((currentSteps.toFloat() * 0.005).toInt()).toString()
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
+        super.onDestroy()
 
         // Almacena el nuevo número de pasos en las preferencias compartidas
         // Detiene la escucha del SensorEventListener cuando el fragmento se pausa
@@ -146,8 +143,19 @@ class WalkingFragment  : AppCompatActivity(){
             val coroutineScope = CoroutineScope(Dispatchers.Main)
             coroutineScope.launch {
                 try {
-                    wpViewModel.updateWalkingPoints(currentSteps+newSteps)
-                    Log.d("TAG", "Walking Points Actualizados!")
+
+                    // Obtener info de usuario logeado en el momento:
+                    sharedPreferences = getSharedPreferences("com.uniandes.unimaps", MODE_PRIVATE);
+                    val userUID  = sharedPreferences.getString("userUid", "ValorPredeterminado")
+
+                    if (userUID != null) {
+                        wpViewModel.updateWalkingPoints(userUID, currentSteps+newSteps, cupons)
+                        Log.d("TAG", "Walking Points Actualizados!")
+                    }
+                    else{
+                        Log.e("TAG", "No fue posible almacenar los walking points en la " +
+                                "base de datos. El usuario parece no estar logeado.")
+                    }
                 }
                 catch  (exception: Exception)
                 {

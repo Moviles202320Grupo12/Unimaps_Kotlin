@@ -60,4 +60,35 @@
             android:src="@drawable/button_date"
             android:id="@+id/search_button"/>
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/contenedorError"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/errorMessageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:text="Mapa no disponible. Por favor, verifica tu conexión a Internet."
+            android:textSize="25dp"
+            android:layout_above="@id/back_button"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/yellow"
+            android:fontFamily="@font/urbanist_semi_bold"
+            android:text="Regresar"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
 </LinearLayout>
