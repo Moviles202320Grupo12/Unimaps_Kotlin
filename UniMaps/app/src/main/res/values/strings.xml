@@ -20,4 +20,5 @@
     <string name="maps_fragment">Mapa de Navegación</string>
     <string name="inscribir">Inscribir</string>
     <string name="client_id">486804180100-bnttldc7tgtthmtbdh667u098j7foq7l.apps.googleusercontent.com</string>
+    <string name="tutor_info" />
 </resources>

@@ -55,7 +55,7 @@ class TutorsSearchActivity : AppCompatActivity() {
 
         listViewTutor.setOnItemClickListener { _, _, position, _ ->
             val selectedTutor = tutores[position] // Get the selected event
-            val intent = Intent(this, EventDetailActivity::class.java)
+            val intent = Intent(this, TutorInfoActivity::class.java)
             intent.putExtra("selectedTutor", selectedTutor)
             startActivity(intent)
         }

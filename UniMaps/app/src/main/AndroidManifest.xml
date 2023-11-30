@@ -71,6 +71,14 @@
             android:label="@string/title_activity_event_feed"
             android:theme="@style/Theme.UniMaps.NoActionBar">
         </activity>
+
+
+        <activity
+            android:name=".ui.Tutor.TutorInfoActivity"
+            android:exported="true"
+            android:label="@string/tutor_info"
+            android:theme="@style/Theme.UniMaps.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

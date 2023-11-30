@@ -1,7 +1,9 @@
 package com.uniandes.unimaps.ui.Tutor
+
+import com.google.firebase.Timestamp
+
 import android.os.Parcel
 import android.os.Parcelable
-import com.google.firebase.Timestamp
 
 data class Tutor(
     private var id: String, // An identifier for the event, you can choose a suitable type
@@ -12,9 +14,9 @@ data class Tutor(
     val location: String,
     val imageUrl: String
 ) : Parcelable {
-
     constructor() : this("", "", "", "", null, "", "")
 
+    // Setter para el campo "id" en Firestore
     fun setId(id: String) {
         this.id = id
     }
@@ -24,36 +26,38 @@ data class Tutor(
     }
 
     // Implement Parcelable methods
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeString(id)
-        dest.writeString(name)
-        dest.writeString(description)
-        dest.writeString(materia)
-        dest.writeString(date.toString())
-        dest.writeString(location)
-        dest.writeString(imageUrl)
+    constructor(parcel: Parcel) : this(
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readParcelable(Timestamp::class.java.classLoader),
+        parcel.readString() ?: "",
+        parcel.readString() ?: ""
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
+        parcel.writeString(name)
+        parcel.writeString(description)
+        parcel.writeString(materia)
+
+        parcel.writeParcelable(date, flags)
+        parcel.writeString(location)
+        parcel.writeString(imageUrl)
     }
 
-    // Companion object for CREATOR
+    override fun describeContents(): Int {
+        return 0
+    }
+
     companion object CREATOR : Parcelable.Creator<Tutor> {
         override fun createFromParcel(parcel: Parcel): Tutor {
-            return Tutor(
-                parcel.readString() ?: "",
-                parcel.readString() ?: "",
-                parcel.readString() ?: "",
-                parcel.readString() ?: "",
-                parcel.readSerializable() as Timestamp?,
-                parcel.readString() ?: "",
-                parcel.readString() ?: ""
-            )
+            return Tutor(parcel)
         }
 
         override fun newArray(size: Int): Array<Tutor?> {
             return arrayOfNulls(size)
         }
-    }
-
-    override fun describeContents(): Int {
-        return 0
     }
 }
