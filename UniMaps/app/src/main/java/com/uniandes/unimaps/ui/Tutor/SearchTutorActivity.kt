@@ -14,6 +14,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import com.uniandes.unimaps.R
 import com.uniandes.unimaps.R.*
+import com.uniandes.unimaps.ui.Events.EventAdapter
 import com.uniandes.unimaps.ui.Events.EventDetailActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +23,7 @@ import kotlinx.coroutines.withContext
 
 
 class TutorsSearchActivity : AppCompatActivity() {
+    private lateinit var filteredTutor: List<Tutor>
     private lateinit var listViewTutor: ListView
     private lateinit var editTextSearch: EditText
     private lateinit var buttonFilter: Button
@@ -48,7 +50,7 @@ class TutorsSearchActivity : AppCompatActivity() {
         myToolbar.title = "Tutores"
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
         tutores= mutableListOf()
-
+       val original= tutores
         val adapter=TutorAdapter(this,tutores)
 
         listViewTutor.adapter=adapter
@@ -61,12 +63,32 @@ class TutorsSearchActivity : AppCompatActivity() {
         }
 
 
+        buttonFilter.setOnClickListener{
 
+            tutores=original
+            val adapter = TutorAdapter(this, tutores)
+            listViewTutor.adapter=adapter
+
+        }
 
 
         editTextSearch.addTextChangedListener { text ->
-            val searchText= text.toString()
-            adapter.filter.filter(searchText)
+            val searchText = text.toString()
+
+            // Filter events based on search text
+            filteredTutor= tutores.filter { tutor ->
+                tutor.name.contains(searchText, ignoreCase = true) ||
+                tutor.description.contains(searchText, ignoreCase = true) ||
+                        tutor.location.contains(searchText, ignoreCase = true) ||
+                        tutor.materia.contains(searchText, ignoreCase = true)
+
+
+            }
+
+            tutores= filteredTutor.toMutableList()
+            val adapter = TutorAdapter(this, tutores)
+
+            listViewTutor.adapter=adapter
         }
     }
 

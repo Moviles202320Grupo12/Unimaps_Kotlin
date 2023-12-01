@@ -85,7 +85,10 @@ class EventsFeedActivity : AppCompatActivity()  {
 
             // Filter events based on search text
              filteredEvents = events.filter { event ->
-                event.name.contains(searchText, ignoreCase = true)
+                         event.name.contains(searchText, ignoreCase = true) ||
+                         event.description.contains(searchText, ignoreCase = true) ||
+                         event.location.contains(searchText, ignoreCase = true)
+
 
             }
 

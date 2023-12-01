@@ -54,9 +54,4 @@ class EventAdapter(
         return listItemView
     }
 
-    // Method to update the dataset with filtered events
-    fun updateEvents(filteredEvents: List<Event>) {
-        events = filteredEvents
-        notifyDataSetChanged() // Notify the adapter about the change in the dataset
-    }
 }
