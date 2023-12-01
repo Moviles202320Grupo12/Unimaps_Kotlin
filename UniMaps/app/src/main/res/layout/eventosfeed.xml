@@ -70,7 +70,7 @@
                 android:layout_marginStart="8dp"
                 android:backgroundTint="@color/yellow"
                 android:fontFamily="@font/urbanist_semi_bold"
-                android:text="Filtrar"
+                android:text="LIMPIAR"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:cornerRadius="10dp" />

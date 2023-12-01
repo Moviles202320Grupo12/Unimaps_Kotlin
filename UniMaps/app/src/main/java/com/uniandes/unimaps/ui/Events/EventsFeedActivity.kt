@@ -20,11 +20,9 @@ import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModelProvider
 import com.uniandes.unimaps.helpers.Network
 import kotlinx.coroutines.withContext
-import okio.Buffer
 import okio.BufferedSink
 import okio.BufferedSource
 import okio.IOException
-import okio.Okio
 import okio.buffer
 import okio.sink
 import okio.source
@@ -35,9 +33,10 @@ import com.google.gson.reflect.TypeToken
 class EventsFeedActivity : AppCompatActivity()  {
     private lateinit var listViewEvents: ListView
     private lateinit var editTextSearch: EditText
-    private lateinit var buttonFilter: Button
+    private lateinit var buttonClear: Button
     private lateinit var eventViewModel: EventViewModel
     private lateinit var events: MutableList<Event> // Declare it as a member variable
+    private lateinit var filteredEvents: List<Event>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.eventosfeed)
@@ -58,7 +57,7 @@ class EventsFeedActivity : AppCompatActivity()  {
         // Initialize UI components
         listViewEvents = findViewById(R.id.listViewEvents)
         editTextSearch = findViewById(R.id.editTextSearch)
-        buttonFilter = findViewById(R.id.FilterButton1)
+        buttonClear = findViewById(R.id.FilterButton1)
 
         // Create an ArrayAdapter to populate the ListView with event names
         val adapter = EventAdapter(this, events)
@@ -66,14 +65,10 @@ class EventsFeedActivity : AppCompatActivity()  {
         listViewEvents.adapter = adapter
 
         // Handle item clicks
+        val original=events
 
 
-        // Handle filter button click
-        buttonFilter.setOnClickListener {
-            // Implement filter logic here
-            // You can update the 'events' list based on the filter criteria and then update the adapter
-            Toast.makeText(this, "Filter button clicked", Toast.LENGTH_SHORT).show()
-        }
+
         listViewEvents.setOnItemClickListener { _, _, position, _ ->
             val selectedEvent = events[position] // Get the selected event
             val intent = Intent(this, EventDetailActivity::class.java)
@@ -81,11 +76,39 @@ class EventsFeedActivity : AppCompatActivity()  {
             startActivity(intent)
         }
 
+
+
+
         // Handle search
         editTextSearch.addTextChangedListener { text ->
             val searchText = text.toString()
-            adapter.filter.filter(searchText)
+
+            // Filter events based on search text
+             filteredEvents = events.filter { event ->
+                event.name.contains(searchText, ignoreCase = true)
+
+            }
+
+            events= filteredEvents.toMutableList()
+            val adapter = EventAdapter(this, events)
+
+            listViewEvents.adapter=adapter
+
         }
+
+
+        // Handle filter button click
+        buttonClear.setOnClickListener {
+            events= original
+            val adapter = EventAdapter(this, events)
+
+            listViewEvents.adapter=adapter
+
+
+
+            Toast.makeText(this, "reset Done", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
 

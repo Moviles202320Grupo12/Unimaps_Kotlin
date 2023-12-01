@@ -12,7 +12,7 @@ import java.util.Date
 
 class EventAdapter(
     context: Context,
-    private val events: List<Event>
+    private var events: List<Event> // Change to var to allow updating the dataset
 ) : ArrayAdapter<Event>(context, 0, events) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -52,5 +52,11 @@ class EventAdapter(
         eventLocationTextView.text = currentEvent?.location
 
         return listItemView
+    }
+
+    // Method to update the dataset with filtered events
+    fun updateEvents(filteredEvents: List<Event>) {
+        events = filteredEvents
+        notifyDataSetChanged() // Notify the adapter about the change in the dataset
     }
 }
