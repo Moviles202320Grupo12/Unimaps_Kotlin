@@ -20,7 +20,7 @@
         <!-- Toolbar for the tutor information view -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/my_toolbar"
-            android:layout_width="409dp"
+            android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginBottom="8dp"
             android:background="@color/yellow"
@@ -43,7 +43,7 @@
             android:visibility="visible" />
 
         <LinearLayout
-            android:layout_width="388dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="5dp"
