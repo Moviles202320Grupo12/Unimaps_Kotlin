@@ -100,6 +100,17 @@
             app:cornerRadius="5dp">
         </EditText>
 
+        <!-- Agregado: TextView para mostrar el mensaje de error -->
+        <TextView
+            android:id="@+id/passwordError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/errorRed"
+            android:visibility="gone"
+            android:text="La contraseña debe tener al menos 8 caracteres, una mayúscula y un número."
+        />
+
 
         <EditText
             android:background="@drawable/register_border"

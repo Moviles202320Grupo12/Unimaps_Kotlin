@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -49,7 +50,12 @@ class RegisterActivity : AppCompatActivity() {
         actionbar.setDisplayHomeAsUpEnabled(true)
 
         binding = RegistroBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
+
+        // Texto de error:
+        val passwordErrorTextView: TextView =  binding.passwordError
+
         binding.registerbutton.setOnClickListener(View.OnClickListener {
             // Registra nuevo usuario
             val fullName = binding.fullName.text.toString()
@@ -62,49 +68,58 @@ class RegisterActivity : AppCompatActivity() {
             {
                 if(password == passwordConfirm)
                 {
-                    // Inicializar el contexto de CoroutineScope:
-                    val coroutineScope = CoroutineScope(Dispatchers.Main)
+                    if(this.validarContrasena(password))
+                    {
+                        // Inicializar el contexto de CoroutineScope:
+                        val coroutineScope = CoroutineScope(Dispatchers.Main)
 
-                    // Llamar a la función verifyUserLogIn en un contexto de Coroutine:
-                    coroutineScope.launch {
-                        try {
-                            val puedeRegistrarse = registerViewModel.verifyUserRegister(email)
-                            if(Network.checkConnectivity(this@RegisterActivity))
-                            {
-                                if(puedeRegistrarse)
+                        // Llamar a la función verifyUserLogIn en un contexto de Coroutine:
+                        coroutineScope.launch {
+                            try {
+                                val puedeRegistrarse = registerViewModel.verifyUserRegister(email)
+                                if(Network.checkConnectivity(this@RegisterActivity))
                                 {
-                                    if(registerViewModel.registerNewUSer(fullName, username, phoneNumber, email, password))
+                                    if(puedeRegistrarse)
                                     {
-                                        createAccount(email, password)
-                                        val intent = Intent(this@RegisterActivity, AccessActivity::class.java)
-                                        startActivity(intent)
-                                        finish()
+                                        passwordErrorTextView.visibility = View.GONE
+                                        if(registerViewModel.registerNewUSer(fullName, username, phoneNumber, email, password))
+                                        {
+                                            createAccount(email, password)
+                                            val intent = Intent(this@RegisterActivity, AccessActivity::class.java)
+                                            startActivity(intent)
+                                            finish()
+                                        }
+                                        else
+                                        {
+                                            val toast = Toast.makeText(applicationContext, "Ocurio un error en el registro!", Toast.LENGTH_LONG)
+                                            toast.show()
+                                        }
                                     }
                                     else
                                     {
-                                        val toast = Toast.makeText(applicationContext, "Ocurio un error en el registro!", Toast.LENGTH_LONG)
+                                        val toast = Toast.makeText(applicationContext, "Ya existe un usuario registrado con este email!", Toast.LENGTH_LONG)
                                         toast.show()
                                     }
                                 }
                                 else
                                 {
-                                    val toast = Toast.makeText(applicationContext, "Ya existe un usuario registrado con este email!", Toast.LENGTH_LONG)
+                                    val toast = Toast.makeText(applicationContext, "No hay conexión. Intenta realizar el registro mas tarde!", Toast.LENGTH_LONG)
                                     toast.show()
                                 }
+
                             }
-                            else
+                            catch  (exception: Exception)
                             {
-                                val toast = Toast.makeText(applicationContext, "No hay conexión. Intenta realizar el registro mas tarde!", Toast.LENGTH_LONG)
+                                Log.e("TAG", "Error en la consulta: ${exception.message}")
+                                val toast = Toast.makeText(applicationContext, "Error al conectar con la BD", Toast.LENGTH_LONG)
                                 toast.show()
                             }
-
                         }
-                        catch  (exception: Exception)
-                        {
-                            Log.e("TAG", "Error en la consulta: ${exception.message}")
-                            val toast = Toast.makeText(applicationContext, "Error al conectar con la BD", Toast.LENGTH_LONG)
-                            toast.show()
-                        }
+                    }
+                    else
+                    {
+                        // Mostrar mensaje de error:
+                        passwordErrorTextView.visibility = View.VISIBLE
                     }
                 }
                 else{
@@ -145,5 +160,14 @@ class RegisterActivity : AppCompatActivity() {
                 Log.w("TAG ERROR REGISTRO", "Error al crear cuenta de usuario: ${email}, Error: ${exception.message}")
                 Toast.makeText(this, "Error en el registro!", Toast.LENGTH_LONG).show()
             }.await()
+    }
+
+    /**
+     * Función que verifica si la contraseña es valida según los parametros
+     */
+    private fun validarContrasena(contrasena: String): Boolean {
+        // Expresión regular:
+        val patron = Regex("^(?=.*[A-Z])(?=.*[0-9]).{8,}$")
+        return patron.matches(contrasena)
     }
 }
