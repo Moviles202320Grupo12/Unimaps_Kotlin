@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.uniandes.unimaps.databinding.RegistroBinding
+import com.uniandes.unimaps.helpers.Network
 import com.uniandes.unimaps.ui.Login.LogInViewModel
 import com.uniandes.unimaps.ui.register.RegisterViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -68,24 +69,32 @@ class RegisterActivity : AppCompatActivity() {
                     coroutineScope.launch {
                         try {
                             val puedeRegistrarse = registerViewModel.verifyUserRegister(email)
-                            if(puedeRegistrarse)
+                            if(Network.checkConnectivity(this@RegisterActivity))
                             {
-                                if(registerViewModel.registerNewUSer(fullName, username, phoneNumber, email, password))
+                                if(puedeRegistrarse)
                                 {
-                                    createAccount(email, password)
-                                    val intent = Intent(this@RegisterActivity, AccessActivity::class.java)
-                                    startActivity(intent)
-                                    finish()
+                                    if(registerViewModel.registerNewUSer(fullName, username, phoneNumber, email, password))
+                                    {
+                                        createAccount(email, password)
+                                        val intent = Intent(this@RegisterActivity, AccessActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                    else
+                                    {
+                                        val toast = Toast.makeText(applicationContext, "Ocurio un error en el registro!", Toast.LENGTH_LONG)
+                                        toast.show()
+                                    }
                                 }
                                 else
                                 {
-                                    val toast = Toast.makeText(applicationContext, "Ocurio un error en el registro!", Toast.LENGTH_LONG)
+                                    val toast = Toast.makeText(applicationContext, "Ya existe un usuario registrado con este email!", Toast.LENGTH_LONG)
                                     toast.show()
                                 }
                             }
                             else
                             {
-                                val toast = Toast.makeText(applicationContext, "Ya existe un usuario registrado con este email!", Toast.LENGTH_LONG)
+                                val toast = Toast.makeText(applicationContext, "No hay conexión. Intenta realizar el registro mas tarde!", Toast.LENGTH_LONG)
                                 toast.show()
                             }
 
