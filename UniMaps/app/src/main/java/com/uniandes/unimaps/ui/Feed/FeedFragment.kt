@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.uniandes.unimaps.ui.Events.EventsFeedActivity
@@ -94,7 +95,10 @@ class FeedFragment : Fragment() {
 
         // Imprimimos el tiempo en milisegundos.
         Log.i("Tiempo en la aplicación", timeInMillis.toString()+ " ms")
+        val toast = Toast.makeText(this.requireContext(), "Se ha cerrado su sesion!", Toast.LENGTH_LONG)
+        toast.show()
         super.onDestroyView()
         _binding = null
+
     }
 }
