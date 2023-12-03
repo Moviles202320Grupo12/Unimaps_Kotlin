@@ -79,6 +79,13 @@
             android:label="@string/tutor_info"
             android:theme="@style/Theme.UniMaps.NoActionBar">
         </activity>
+
+        <activity
+            android:name=".ui.home.MapActivity"
+            android:exported="true"
+            android:label="@string/tutor_info"
+            android:theme="@style/Theme.UniMaps.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

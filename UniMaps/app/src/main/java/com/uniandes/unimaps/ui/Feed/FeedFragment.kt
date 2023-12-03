@@ -20,6 +20,7 @@ import com.uniandes.unimaps.databinding.FragmentFeedBinding
 import com.uniandes.unimaps.ui.Tutor.TutorsSearchActivity
 import com.uniandes.unimaps.ui.WalkingPoints.WalkingFragment
 import com.uniandes.unimaps.ui.home.HomeFragment
+import com.uniandes.unimaps.ui.home.MapActivity
 
 class FeedFragment : Fragment() {
 
@@ -64,14 +65,12 @@ class FeedFragment : Fragment() {
             getActivity()?.startActivity(intent)
         }
 
-        // Configurar Boton Lost Property:
-        val lostPropertyButton = root.findViewById<Button>(R.id.button7)
+        // Configurar boton mapa:
+        val mapNAvigationButton = root.findViewById<Button>(R.id.button7)
 
-        lostPropertyButton.setOnClickListener {
-            val transaction = activity?.supportFragmentManager?.beginTransaction()
-            transaction?.replace(R.id.arribaFeed, HomeFragment())
-            transaction?.disallowAddToBackStack()
-            transaction?.commit()
+        mapNAvigationButton.setOnClickListener {
+            val intent = Intent (getActivity(), MapActivity::class.java)
+            getActivity()?.startActivity(intent)
         }
 
         // Configurar Boton Walking Points:

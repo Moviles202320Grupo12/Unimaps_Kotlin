@@ -14,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.uniandes.unimaps.databinding.RegistroBinding
 import com.uniandes.unimaps.helpers.Network
-import com.uniandes.unimaps.ui.Login.LogInViewModel
 import com.uniandes.unimaps.ui.register.RegisterViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -55,6 +54,7 @@ class RegisterActivity : AppCompatActivity() {
 
         // Texto de error:
         val passwordErrorTextView: TextView =  binding.passwordError
+        val emailErrorTextView: TextView =  binding.emailError
 
         binding.registerbutton.setOnClickListener(View.OnClickListener {
             // Registra nuevo usuario
@@ -64,66 +64,84 @@ class RegisterActivity : AppCompatActivity() {
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
             val passwordConfirm = binding.confirmPassword.text.toString()
-            if(fullName != "" && username != "" && phoneNumber != "" && email != "" && password!= "" && passwordConfirm!= "")
+            if((fullName != "" && username != "" && phoneNumber != "" && email != "" && password!= "" && passwordConfirm!= ""))
             {
-                if(password == passwordConfirm)
+                val verificacion = this.verificarLongitudCampos(fullName, username, phoneNumber, email, password)
+                if(verificacion==null)
                 {
-                    if(this.validarContrasena(password))
+                    if(password == passwordConfirm)
                     {
-                        // Inicializar el contexto de CoroutineScope:
-                        val coroutineScope = CoroutineScope(Dispatchers.Main)
+                        if(this.validarFormatoCorreo(email))
+                        {
+                            if(this.validarContrasena(password))
+                            {
+                                // Inicializar el contexto de CoroutineScope:
+                                val coroutineScope = CoroutineScope(Dispatchers.Main)
 
-                        // Llamar a la función verifyUserLogIn en un contexto de Coroutine:
-                        coroutineScope.launch {
-                            try {
-                                val puedeRegistrarse = registerViewModel.verifyUserRegister(email)
-                                if(Network.checkConnectivity(this@RegisterActivity))
-                                {
-                                    if(puedeRegistrarse)
-                                    {
-                                        passwordErrorTextView.visibility = View.GONE
-                                        if(registerViewModel.registerNewUSer(fullName, username, phoneNumber, email, password))
+                                // Llamar a la función verifyUserLogIn en un contexto de Coroutine:
+                                coroutineScope.launch {
+                                    try {
+                                        val puedeRegistrarse = registerViewModel.verifyUserRegister(email)
+                                        if(Network.checkConnectivity(this@RegisterActivity))
                                         {
-                                            createAccount(email, password)
-                                            val intent = Intent(this@RegisterActivity, AccessActivity::class.java)
-                                            startActivity(intent)
-                                            finish()
+                                            if(puedeRegistrarse)
+                                            {
+                                                passwordErrorTextView.visibility = View.GONE
+                                                if(registerViewModel.registerNewUSer(fullName, username, phoneNumber, email, password))
+                                                {
+                                                    createAccount(email, password)
+                                                    val intent = Intent(this@RegisterActivity, AccessActivity::class.java)
+                                                    startActivity(intent)
+                                                    finish()
+                                                }
+                                                else
+                                                {
+                                                    val toast = Toast.makeText(applicationContext, "Ocurio un error en el registro!", Toast.LENGTH_LONG)
+                                                    toast.show()
+                                                }
+                                            }
+                                            else
+                                            {
+                                                val toast = Toast.makeText(applicationContext, "Ya existe un usuario registrado con este email!", Toast.LENGTH_LONG)
+                                                toast.show()
+                                            }
                                         }
                                         else
                                         {
-                                            val toast = Toast.makeText(applicationContext, "Ocurio un error en el registro!", Toast.LENGTH_LONG)
+                                            val toast = Toast.makeText(applicationContext, "No hay conexión. Intenta realizar el registro mas tarde!", Toast.LENGTH_LONG)
                                             toast.show()
                                         }
+
                                     }
-                                    else
+                                    catch  (exception: Exception)
                                     {
-                                        val toast = Toast.makeText(applicationContext, "Ya existe un usuario registrado con este email!", Toast.LENGTH_LONG)
+                                        Log.e("TAG", "Error en la consulta: ${exception.message}")
+                                        val toast = Toast.makeText(applicationContext, "Error al conectar con la BD", Toast.LENGTH_LONG)
                                         toast.show()
                                     }
                                 }
-                                else
-                                {
-                                    val toast = Toast.makeText(applicationContext, "No hay conexión. Intenta realizar el registro mas tarde!", Toast.LENGTH_LONG)
-                                    toast.show()
-                                }
-
                             }
-                            catch  (exception: Exception)
+                            else
                             {
-                                Log.e("TAG", "Error en la consulta: ${exception.message}")
-                                val toast = Toast.makeText(applicationContext, "Error al conectar con la BD", Toast.LENGTH_LONG)
-                                toast.show()
+                                // Mostrar mensaje de error:
+                                passwordErrorTextView.visibility = View.VISIBLE
                             }
                         }
+                        else
+                        {
+                            // Mostrar mensaje de error:
+                            emailErrorTextView.visibility = View.VISIBLE
+                        }
+
                     }
-                    else
-                    {
-                        // Mostrar mensaje de error:
-                        passwordErrorTextView.visibility = View.VISIBLE
+                    else{
+                        val toast = Toast.makeText(applicationContext, "Las contraseñas no coinciden", Toast.LENGTH_LONG)
+                        toast.show()
                     }
                 }
-                else{
-                    val toast = Toast.makeText(applicationContext, "Las contraseñas no coinciden", Toast.LENGTH_LONG)
+                else
+                {
+                    val toast = Toast.makeText(applicationContext, verificacion, Toast.LENGTH_LONG)
                     toast.show()
                 }
             }
@@ -169,5 +187,47 @@ class RegisterActivity : AppCompatActivity() {
         // Expresión regular:
         val patron = Regex("^(?=.*[A-Z])(?=.*[0-9]).{8,}$")
         return patron.matches(contrasena)
+    }
+
+
+    /**
+     * Función que verifica la longitud de los campos es correcta
+     */
+    fun verificarLongitudCampos(
+        fullName: String,
+        username: String,
+        phoneNumber: String,
+        email: String,
+        password: String
+    ): String? {
+
+        if (fullName.length > 30) {
+            return "El campo Nombre Completo excede el número maximo de caracteres."
+        }
+
+        if (username.length > 10) {
+            return "El campo Username excede el número maximo de caracteres."
+        }
+
+        if (phoneNumber.length > 10) {
+            return "El campo Número de Teléfono excede el número maximo de caracteres."
+        }
+
+        if (email.length > 50) {
+            return "El campo Email excede el número maximo de caracteres."
+        }
+
+        if (password.length > 12) {
+            return "El campo Contraseña excede el número maximo de caracteres."
+        }
+
+        return null // Todos los campos están dentro del rango de longitud aceptable
+    }
+
+
+    fun validarFormatoCorreo(correo: String): Boolean {
+        val patronCorreo = Regex("^\\S+@\\S+\\.\\S+\$")
+
+        return patronCorreo.matches(correo)
     }
 }

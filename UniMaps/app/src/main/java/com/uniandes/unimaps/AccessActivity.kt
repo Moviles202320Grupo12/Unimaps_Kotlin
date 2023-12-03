@@ -16,6 +16,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.uniandes.unimaps.databinding.AccessBinding
+import com.uniandes.unimaps.helpers.Network
 import com.uniandes.unimaps.models.UserModel
 import com.uniandes.unimaps.ui.Login.LogInViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -58,33 +59,41 @@ class AccessActivity : AppCompatActivity() {
             val password = binding.password.text.toString()
             if(username != "" && password!= "")
             {
-                /**
-                 * Se utilizan corutinas para la parte del manejo de concurrencia de la aplicación:
-                 */
+                if(Network.checkConnectivity(this@AccessActivity))
+                {
+                    /**
+                     * Se utilizan corutinas para la parte del manejo de concurrencia de la aplicación:
+                     */
 
-                // Inicializar el contexto de CoroutineScope:
-                val coroutineScope = CoroutineScope(Dispatchers.Main)
+                    // Inicializar el contexto de CoroutineScope:
+                    val coroutineScope = CoroutineScope(Dispatchers.Main)
 
-                // Llamar a la función verifyUserLogIn en un contexto de Coroutine:
-                coroutineScope.launch {
-                    try {
-                        val puedeIngresar = loginViewModel.verifyUserLogIn(username, password)
-                        if(puedeIngresar.isNotEmpty())
-                        {
-                            signInWithEmailAndPassword(username, password)
+                    // Llamar a la función verifyUserLogIn en un contexto de Coroutine:
+                    coroutineScope.launch {
+                        try {
+                            val puedeIngresar = loginViewModel.verifyUserLogIn(username, password)
+                            if(puedeIngresar.isNotEmpty())
+                            {
+                                signInWithEmailAndPassword(username, password)
+                            }
+                            else
+                            {
+                                val toast = Toast.makeText(applicationContext, "Usuario Errado!", Toast.LENGTH_LONG)
+                                toast.show()
+                            }
+
                         }
-                        else
+                        catch  (e: Exception)
                         {
-                            val toast = Toast.makeText(applicationContext, "Usuario Errado!", Toast.LENGTH_LONG)
+                            val toast = Toast.makeText(applicationContext, "Error al conectar con la BD", Toast.LENGTH_LONG)
                             toast.show()
                         }
-
                     }
-                    catch  (e: Exception)
-                    {
-                        val toast = Toast.makeText(applicationContext, "Error al conectar con la BD", Toast.LENGTH_LONG)
-                        toast.show()
-                    }
+                }
+                else
+                {
+                    val toast = Toast.makeText(applicationContext, "Parece que no tienes conexión. Por favor intentalo mas tarde.", Toast.LENGTH_LONG)
+                    toast.show()
                 }
             }
 
@@ -145,6 +154,7 @@ class AccessActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     val intent = Intent(this@AccessActivity, MainActivity::class.java)
                     startActivity(intent)
+                    finish();
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(this@AccessActivity, "Authentication Failed.", Toast.LENGTH_SHORT).show()
