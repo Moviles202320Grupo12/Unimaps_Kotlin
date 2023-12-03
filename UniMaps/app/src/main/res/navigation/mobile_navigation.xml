@@ -18,15 +18,9 @@
         tools:layout="@layout/eventosfeed" />
 
     <fragment
-        android:id="@+id/nav_tutors"
-        android:name="com.uniandes.unimaps.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_tutors"
-        tools:layout="@layout/tutores_search" />
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-    <fragment
-        android:id="@+id/nav_Wp"
-        android:name="com.uniandes.unimaps.ui.WalkingPoints.WalkingFragment"
-        android:label="@string/menu_wp"
-        tools:layout="@layout/fragment_wp" />
+        android:id="@+id/map_fragment"
+        android:name="com.uniandes.unimaps.ui.gallery.GalleryFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
 </navigation>

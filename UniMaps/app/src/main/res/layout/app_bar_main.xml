@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/yellow"
-            app:navigationIcon="?attr/homeAsUpIndicator"
             app:popupTheme="@style/Theme.UniMaps.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
