@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -97,7 +98,16 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         initializeData()
 
         val adapter = RVAdapter(places)
+
+        adapter.setOnClickListener(object : RVAdapter.OnClickListener {
+            override fun onClick(position: Int, model: InterestingPlace) {
+                Log.d("YourFragment", "Item clicked at position $position: ${model.name}")
+            }
+        })
+
         recyclerView.adapter = adapter
+
+
 
         return root
     }
