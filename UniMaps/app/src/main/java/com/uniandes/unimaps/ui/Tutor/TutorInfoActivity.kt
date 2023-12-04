@@ -1,16 +1,20 @@
 package com.uniandes.unimaps.ui.Tutor
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.icu.text.SimpleDateFormat
+import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
@@ -42,10 +46,14 @@ class TutorInfoActivity: AppCompatActivity() {
             val tutorInfDesc=findViewById<TextView>(R.id.tutorInfoDescription)
             val tutorInfDate =findViewById<TextView>(R.id.tutorTimeDate)
             val tutorInfImage =findViewById<ImageView>(R.id.tutorInfoImage)
+            val tutorinfPhone =findViewById<TextView>(R.id.tutorInfPhone)
+            val whatsButton =findViewById<Button>(R.id.tutorInfoRequestButton)
             tutorInfName.text=selectedTutor.name
             tutorInfDesc.text=selectedTutor.description
             tutorInfLocation.text=selectedTutor.location
             tutorInfMateria.text=selectedTutor.materia
+            tutorinfPhone.text=selectedTutor.phone
+            val phone =selectedTutor.phone
             supportActionBar!!.title=tutorInfName.text
             val date=selectedTutor.date
             if (date != null) {
@@ -64,9 +72,34 @@ class TutorInfoActivity: AppCompatActivity() {
             val imageLoader = EventImageLoader(tutorInfImage)
             imageLoader.execute(selectedTutor?.imageUrl)
 
+            whatsButton.setOnClickListener{
+                if (!phone.isNullOrBlank()) {
+                    openWhatsAppChat(phone)
+                } else {
+                    // Handle the case when the phone number is not available
+
+                    Toast.makeText(this,"\"Phone number not available\"", Toast.LENGTH_SHORT).show()
+                }
+
+            }
         }else{
             Log.d("TAG","The parsing of the selected tutor failed")
 
+        }
+    }
+
+    private fun openWhatsAppChat(phoneNumber: String) {
+        try {
+            val intent = Intent("android.intent.action.MAIN")
+            intent.action = Intent.ACTION_VIEW
+            intent.setPackage("com.whatsapp")
+            val colPhone="+57$phoneNumber"
+            // Use Uri.encode to handle special characters in the phone number
+            val data = Uri.parse("https://wa.me/${Uri.encode(colPhone)}")
+            intent.data = data
+            startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(this,"WhatsApp is not installed on your device", Toast.LENGTH_SHORT).show()
         }
     }
 

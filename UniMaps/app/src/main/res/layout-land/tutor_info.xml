@@ -14,6 +14,7 @@
         tools:context=".ui.Tutor.TutorInfoActivity">
 
         <!-- Toolbar for the tutor information view -->
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
@@ -125,6 +126,30 @@
                 android:textSize="16sp" />
         </LinearLayout>
         <!-- Button to Request Tutoring -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray_forms"
+            android:backgroundTint="@color/gray_forms"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tutorInfP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_forms"
+                android:text="Phone: "
+                android:textColor="#020202"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tutorInfPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="16sp" />
+        </LinearLayout>
+
         <Button
             android:id="@+id/tutorInfoRequestButton"
             android:layout_width="match_parent"
@@ -135,14 +160,6 @@
             app:backgroundTint="@color/yellow" />
 
         <!-- Button to Save for Later -->
-        <Button
-            android:id="@+id/tutorInfoSaveButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Save for Later"
-            android:textColor="@color/black"
-            app:backgroundTint="@color/yellow" />
 
     </LinearLayout>
 </ScrollView>
