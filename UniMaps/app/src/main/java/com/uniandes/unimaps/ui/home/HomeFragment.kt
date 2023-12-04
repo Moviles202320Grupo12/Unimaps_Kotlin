@@ -101,13 +101,26 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         adapter.setOnClickListener(object : RVAdapter.OnClickListener {
             override fun onClick(position: Int, model: InterestingPlace) {
-                Log.d("YourFragment", "Item clicked at position $position: ${model.name}")
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Confirmar")
+                builder.setMessage("¿Estás seguro que quiere continuar la navegación a ${model.name} en otra app?")
+
+                builder.setPositiveButton("Sí") { _, _ ->
+                    // Usuario hizo clic en Sí, abrir Waze
+                    openWazeWithLocationFromFragment(model.coordinates[0], model.coordinates[1], model.name)
+                }
+
+                builder.setNegativeButton("No") { _, _ ->
+                    // Usuario hizo clic en No, no hacer nada
+                }
+
+                val dialog = builder.create()
+                dialog.show()
+
             }
         })
 
         recyclerView.adapter = adapter
-
-
 
         return root
     }
@@ -190,9 +203,48 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.black));
     }
 
+    /**
+     * Agregar a la lista los sitios de interes
+     */
     private fun initializeData() {
-        places.add(InterestingPlace("Edificio ML", 23, "Mario Laserna", R.drawable.edificioml))
-        places.add(InterestingPlace("Edificio W", 25, "Carlos Pacheco Devia", R.drawable.edificiow))
-        places.add(InterestingPlace("Edificio C", 35, "Facultad de Arquitectura y Diseño", R.drawable.edificioc))
+        places.add(InterestingPlace("Edificio ML", listOf(4.6025488, -74.0647954), "Mario Laserna", R.drawable.edificioml))
+        places.add(InterestingPlace("Centro Deportivo", listOf(4.7329161, -74.0183537), "La Caneca", R.drawable.centro_deportivo))
+        places.add(InterestingPlace("Edificio C", listOf(4.6016861, -74.0644734), "Facultad de Arquitectura y Diseño", R.drawable.edificioc))
+    }
+
+    fun openWazeWithLocationFromFragment(
+        latitude: Double,
+        longitude: Double,
+        label: String? = null
+    ) {
+        val wazeUri = if (label != null) {
+            "waze://?ll=$latitude,$longitude&navigate=yes&z=10&q=$label"
+        } else {
+            "waze://?ll=$latitude,$longitude&navigate=yes&z=10"
+        }
+
+        val wazeIntent = Intent(Intent.ACTION_VIEW, Uri.parse(wazeUri))
+
+        // Check if Waze is installed
+        if (wazeIntent.resolveActivity(requireActivity().packageManager) != null) {
+            requireActivity().startActivity(wazeIntent)
+        } else {
+            // Waze is not installed, check if Google Maps is installed
+            val googleMapsUri = "google.navigation:q=$latitude,$longitude"
+            val googleMapsIntent = Intent(Intent.ACTION_VIEW, Uri.parse(googleMapsUri))
+
+            if (googleMapsIntent.resolveActivity(requireActivity().packageManager) != null) {
+                // Google Maps is installed, open it
+                requireActivity().startActivity(googleMapsIntent)
+            } else {
+                // Neither Waze nor Google Maps is installed, redirect to the Play Store to install Waze
+                val playStoreIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=com.waze")
+                )
+                requireActivity().startActivity(playStoreIntent)
+            }
+        }
+
     }
 }
