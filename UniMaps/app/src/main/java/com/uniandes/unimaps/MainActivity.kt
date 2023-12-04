@@ -39,12 +39,12 @@ class MainActivity : AppCompatActivity() {
         // Autenticación con Firebase:
         auth = Firebase.auth
 
-        //if(auth.currentUser == null)
+        if(auth.currentUser == null)
         {
             startActivity(Intent(this, LogInActivity::class.java))
             finish()
         }
-        //else
+        else
         {
             saveUserInfo();
         }
