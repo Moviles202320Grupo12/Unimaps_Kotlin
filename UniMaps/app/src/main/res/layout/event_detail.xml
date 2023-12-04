@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,106 +7,140 @@
     android:layout_height="match_parent"
     android:background="@color/gray_form_border">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/gray_form_border"
-        android:padding="16dp"
-        tools:context=".ui.Events.EventDetailActivity">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="@color/white" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/my_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:titleTextColor="@color/white" />
-
-        <ImageView
-            android:id="@+id/eventDetailImage"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:contentDescription="Event Image"
-            android:scaleType="centerCrop"
-            android:src="@drawable/feria" />
-
-        <TextView
-            android:id="@+id/eventDetailName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:lineSpacingExtra="8sp"
-            android:text="Event Name"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/eventDetailDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@color/gray_forms"
-            android:text="Event Description"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+    <ScrollView
+        android:layout_below="@id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray_forms"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:background="@color/gray_form_border"
+            android:padding="16dp"
+            tools:context=".ui.Events.EventDetailActivity">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/gray_forms"
-                android:text="Date: "
-                android:textColor="#020202"
-                android:textSize="18sp" />
+            <ImageView
+                android:id="@+id/eventDetailImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:contentDescription="Event Image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/feria" />
 
+            <!-- Rest of your layout -->
             <TextView
-                android:id="@+id/eventDetailDate"
+                android:id="@+id/eventDetailName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date: January 1, 2023"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/gray_forms"
-            android:backgroundTint="@color/gray_forms"
-            android:orientation="horizontal">
+                android:layout_marginTop="16dp"
+                android:lineSpacingExtra="8sp"
+                android:text="Event Name"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/gray_forms"
-                android:text="Location: "
-                android:textColor="#020202"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/eventDetailLocation"
+                android:id="@+id/eventDetailDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Location: Event Venue"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray_forms"
+                android:text="Event Description"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_forms"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_forms"
+                    android:text="Date: "
+                    android:textColor="#020202"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/eventDetailDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Date: January 1, 2023"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_forms"
+                android:backgroundTint="@color/gray_forms"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_forms"
+                    android:text="Location: "
+                    android:textColor="#020202"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/eventDetailLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Location: Event Venue"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_forms"
+                android:backgroundTint="@color/gray_forms"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_forms"
+                    android:text="Popularity: "
+                    android:textColor="#020202"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/eventDetailPopularity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Popularity:Event popularity"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/eventDetailInscriptionButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTintMode="add"
+                android:text="Inscripción"
+                android:textColor="@color/black"
+                app:backgroundTint="@color/yellow"
+                app:iconTint="@color/black" />
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/eventDetailInscriptionButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:backgroundTintMode="add"
-            android:text="Inscripción"
-            android:textColor="@color/black"
-            app:backgroundTint="@color/yellow"
-            app:iconTint="@color/black" />
+    </ScrollView>
 
-    </LinearLayout>
-</ScrollView>
+</RelativeLayout>

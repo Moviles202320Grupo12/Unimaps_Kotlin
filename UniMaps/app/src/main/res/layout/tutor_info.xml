@@ -119,7 +119,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/tutorTimeLocation"
+                android:id="@+id/tutorTimeDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Location: Tutor Venue"

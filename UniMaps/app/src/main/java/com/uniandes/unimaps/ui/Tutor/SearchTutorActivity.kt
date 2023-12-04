@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
@@ -47,7 +48,7 @@ class TutorsSearchActivity : AppCompatActivity() {
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //set actionbar title
-        myToolbar.title = "Tutores"
+        supportActionBar!!.title = "Tutores"
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
         tutores= mutableListOf()
        val original= tutores
@@ -118,6 +119,18 @@ class TutorsSearchActivity : AppCompatActivity() {
                 Log.e("TAG", "Error en la carga del BD de eventos: ${exception.message}")
             }
 
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Realiza la acción que desees cuando se presiona el botón de "Atrás"
+                onBackPressed() // Esto es común para volver a la actividad anterior
+                finish()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 }

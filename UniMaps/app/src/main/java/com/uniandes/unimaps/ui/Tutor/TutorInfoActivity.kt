@@ -8,6 +8,7 @@ import android.icu.text.SimpleDateFormat
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -39,12 +40,13 @@ class TutorInfoActivity: AppCompatActivity() {
             val tutorInfMateria =findViewById<TextView>(R.id.tutorInfoSpecialization)
             val tutorInfLocation =findViewById<TextView>(R.id.tutorInfoLocation)
             val tutorInfDesc=findViewById<TextView>(R.id.tutorInfoDescription)
-            val tutorInfDate =findViewById<TextView>(R.id.tutorInfoDate)
+            val tutorInfDate =findViewById<TextView>(R.id.tutorTimeDate)
             val tutorInfImage =findViewById<ImageView>(R.id.tutorInfoImage)
             tutorInfName.text=selectedTutor.name
             tutorInfDesc.text=selectedTutor.description
             tutorInfLocation.text=selectedTutor.location
             tutorInfMateria.text=selectedTutor.materia
+            supportActionBar!!.title=tutorInfName.text
             val date=selectedTutor.date
             if (date != null) {
                 // Convert the Timestamp to a Date object
@@ -65,6 +67,18 @@ class TutorInfoActivity: AppCompatActivity() {
         }else{
             Log.d("TAG","The parsing of the selected tutor failed")
 
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Realiza la acción que desees cuando se presiona el botón de "Atrás"
+                onBackPressed() // Esto es común para volver a la actividad anterior
+                finish()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 
@@ -94,5 +108,7 @@ class TutorInfoActivity: AppCompatActivity() {
                 imageView.setImageResource(R.drawable.logo_sin_texto)
             }
         }
+
+
     }
 }
