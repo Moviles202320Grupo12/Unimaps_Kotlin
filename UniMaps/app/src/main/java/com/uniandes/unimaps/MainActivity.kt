@@ -2,9 +2,13 @@ package com.uniandes.unimaps
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -66,11 +70,25 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_events, R.id.nav_tutors
+                R.id.nav_Feed, R.id.nav_events, R.id.nav_log_out
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        // Set navigation listener to toolbar
+        findViewById<Toolbar>(R.id.toolbar).setNavigationOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        //actionbar
+        val actionbar = supportActionBar
+        //set actionbar title
+        actionbar!!.title = ""
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
+        //set back button
+        actionbar.setDisplayHomeAsUpEnabled(true)
+        actionbar.setHomeAsUpIndicator(R.drawable.baseline_menu_24)
 
     }
 
@@ -102,7 +120,13 @@ class MainActivity : AppCompatActivity() {
     // Método para cerrar sesión
     fun logout() {
         auth.signOut()
+
+        val intent = Intent(this, LogInActivity::class.java)
+        intent.putExtra("key", "value")
+        startActivity(intent)
+
         finish()
+
     }
 
 }

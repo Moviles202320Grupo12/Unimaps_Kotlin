@@ -228,5 +228,25 @@ class DBAsyncTask {
         }
     }
 
+    suspend fun storeTimeToLogIn(timeInMillis: Long) {
+        try {
+            val db = FirebaseFirestore.getInstance()
+            val data = hashMapOf("time" to timeInMillis)
+
+            // Realiza la operación de escritura en Firestore
+            db.collection("login_time")
+                .document()
+                .set(data)
+                .await()
+
+            // La operación se ha completado con éxito
+            // Puedes agregar cualquier otro código de manejo aquí
+        } catch (exception: Exception) {
+            // Manejo de errores, como registro de errores
+            Log.e("TAG", "Error en la consulta: ${exception.message}")
+            // Puedes lanzar una excepción o manejarla según tus necesidades
+        }
+    }
+
 
 }

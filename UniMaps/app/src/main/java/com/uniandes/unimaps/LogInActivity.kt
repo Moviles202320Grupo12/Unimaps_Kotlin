@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -20,6 +21,8 @@ class LogInActivity : ComponentActivity() {
 
     // Preferencias:
     var prefs: SharedPreferences? = null
+
+    private val startTime = SystemClock.elapsedRealtime()
 
     // Esto hace el binding con la vista xml de Log In:
     private lateinit var binding: LogInBinding
@@ -46,6 +49,26 @@ class LogInActivity : ComponentActivity() {
             startActivity(intent)
         })
         binding.loginButton.setOnClickListener(View.OnClickListener {
+            // Se registra el tiempo total:
+            // Obtenemos el tiempo actual en milisegundos.
+            val endTime = SystemClock.elapsedRealtime()
+
+            // Calculamos el tiempo que el usuario pasó en la aplicación.
+            val timeInMillis = endTime - startTime
+            // Inicializar el contexto de CoroutineScope:
+            val coroutineScope = CoroutineScope(Dispatchers.Main)
+
+            coroutineScope.launch {
+                try {
+                    loginViewModel.storeTimeToLogIn(timeInMillis);
+                    Log.d("TAG", "La BQ fue guardada exitosamente")
+                }
+                catch  (exception: Exception)
+                {
+                    Log.e("TAG", "Error en la consulta: ${exception.message}")
+                }
+            }
+
             // Manda a ventana de acceso:
             val intent = Intent(this, AccessActivity::class.java)
             startActivity(intent)

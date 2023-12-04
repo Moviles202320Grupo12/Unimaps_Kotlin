@@ -13,6 +13,8 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,8 +26,10 @@ import com.uniandes.unimaps.MainActivity
 import com.uniandes.unimaps.R
 import com.uniandes.unimaps.databinding.FragmentHomeBinding
 import com.uniandes.unimaps.helpers.Network
+import com.uniandes.unimaps.models.InterestingPlace
 import com.uniandes.unimaps.ui.Events.EventsFeedActivity
 import com.uniandes.unimaps.ui.WalkingPoints.WalkingFragment
+import com.uniandes.unimaps.ui.place.RVAdapter
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
@@ -41,6 +45,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    // Lista de lugares de interes:
+    private val places: MutableList<InterestingPlace> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -81,6 +88,16 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             getActivity()?.startActivity(intent)
 
         }
+
+        val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+        val linearLayoutManager = LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager = linearLayoutManager
+
+        initializeData()
+
+        val adapter = RVAdapter(places)
+        recyclerView.adapter = adapter
 
         return root
     }
@@ -161,5 +178,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.black));
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.black));
+    }
+
+    private fun initializeData() {
+        places.add(InterestingPlace("Edificio ML", 23, "Mario Laserna", R.drawable.edificioml))
+        places.add(InterestingPlace("Edificio W", 25, "Carlos Pacheco Devia", R.drawable.edificiow))
+        places.add(InterestingPlace("Edificio C", 35, "Facultad de Arquitectura y Diseño", R.drawable.edificioc))
     }
 }
