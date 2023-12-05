@@ -19,11 +19,12 @@ import com.google.firebase.ktx.Firebase
 import com.uniandes.unimaps.databinding.ActivityMainBinding
 
 
-class MainActivity(valorRecibido:Boolean?) : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
+
 
     // Preferencias:
     var prefs: SharedPreferences? = null
-    val valor:Boolean? = valorRecibido
+    var valor:Boolean? = null
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -36,6 +37,8 @@ class MainActivity(valorRecibido:Boolean?) : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        valor = intent.extras?.getBoolean("valorRecibido");
 
         if(valor!=true){
             auth = Firebase.auth

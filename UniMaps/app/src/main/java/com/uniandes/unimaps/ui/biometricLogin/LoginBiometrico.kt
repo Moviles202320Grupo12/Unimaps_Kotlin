@@ -54,7 +54,8 @@ class LoginBiometrico:AppCompatActivity() {
                 override fun onAuthenticationSucceeded(
                     result: BiometricPrompt.AuthenticationResult,
                 ) {
-                    val intent = Intent (this@LoginBiometrico, MainActivity(true)::class.java)
+                    val intent = Intent (this@LoginBiometrico, MainActivity()::class.java)
+                    intent.putExtra("valorRecibido", true);
                     startActivity(intent)
                     super.onAuthenticationSucceeded(result)
                     Toast.makeText(applicationContext,
