@@ -52,7 +52,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_weight="93"
+        android:layout_weight="86"
         android:layout_height="0dp"
         android:id="@+id/contenedorMapa">
 
@@ -65,6 +65,17 @@
         android:layout_height="match_parent"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/headerTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lugares de Interes Cercanos"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:paddingTop="2dp"
+        android:textStyle="bold"
+        android:paddingBottom="2dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

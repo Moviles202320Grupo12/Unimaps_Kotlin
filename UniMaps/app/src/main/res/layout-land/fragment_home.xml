@@ -7,30 +7,13 @@
     android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="93"
-        android:layout_height="0dp"
-        android:id="@+id/contenedorMapa">
-
-        <!-- Mapa -->
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            tools:context=".ui.home.HomeFragment"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
-
     <!-- Menú -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
-        android:layout_weight="11"
-        android:gravity="bottom"
+        android:layout_weight="100"
+        android:gravity="top"
         android:orientation="horizontal">
 
         <ImageButton
@@ -40,7 +23,7 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_button"
-            android:padding="2dp"
+            android:padding="3dp"
             android:scaleType="fitCenter"
             android:src="@drawable/menu_home" />
 
@@ -50,7 +33,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/rounded_button"
-            android:padding="2dp"
+            android:padding="3dp"
             android:scaleType="fitCenter"
             android:src="@drawable/img_walking" />
 
@@ -61,10 +44,51 @@
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_button"
-            android:padding="2dp"
+            android:padding="3dp"
             android:scaleType="fitCenter"
             android:src="@drawable/button_date" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/contenedorMapa"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="500"
+        android:orientation="vertical">
+
+        <!-- Mapa -->
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.home.HomeFragment" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="200"
+        android:layout_height="10dp"
+        android:id="@+id/contenedorRecycle">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/contenedorMapa"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:nestedScrollingEnabled="false"
+            />
+
+    </LinearLayout>
+
+
 
     <RelativeLayout
         android:id="@+id/contenedorError"
@@ -97,3 +121,4 @@
     </RelativeLayout>
 
 </LinearLayout>
+
