@@ -103,13 +103,8 @@ class EventDetailActivity : AppCompatActivity() {
     private fun openWebPage(url: String) {
         val webPageUri = Uri.parse(url)
         val intent = Intent(Intent.ACTION_VIEW, webPageUri)
-        if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)
-        } else {
-            // Handle the case where there is no app to handle the URL
-            // You can show a toast message or display an error to the user
-            Toast.makeText(this, "No app can handle this request.", Toast.LENGTH_SHORT).show()
-        }
+        
     }
     // Function to update popularity in the database
     private fun updatePopularityInDatabase(eventId: String, newPopularity: Int) {
