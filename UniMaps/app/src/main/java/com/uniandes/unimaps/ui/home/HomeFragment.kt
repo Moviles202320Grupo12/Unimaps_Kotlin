@@ -65,6 +65,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         val buttonHome = root.findViewById<ImageView>(R.id.home_button)
         buttonHome.setOnClickListener {
             val intent = Intent (getActivity(), MainActivity::class.java)
+            intent.putExtra("valorRecibido", true);
             getActivity()?.startActivity(intent)
         }
 
