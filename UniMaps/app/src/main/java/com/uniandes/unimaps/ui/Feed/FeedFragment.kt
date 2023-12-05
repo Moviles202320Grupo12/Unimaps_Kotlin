@@ -55,7 +55,7 @@ class FeedFragment : Fragment() {
         }
 
         val topeventButton =root.findViewById<Button>(R.id.buttonTopEventFeed)
-        eventButton.setOnClickListener {
+        topeventButton.setOnClickListener {
             val intent = Intent (getActivity(), TopEvents_activity::class.java)
             getActivity()?.startActivity(intent)
 
