@@ -46,6 +46,7 @@ class TutorInfoActivity: AppCompatActivity() {
             val tutorInfDesc=findViewById<TextView>(R.id.tutorInfoDescription)
             val tutorInfDate =findViewById<TextView>(R.id.tutorTimeDate)
             val tutorInfImage =findViewById<ImageView>(R.id.tutorInfoImage)
+            val tutorInfBusquedas =findViewById<TextView>(R.id.tutorInfoBusquedas)
             val tutorinfPhone =findViewById<TextView>(R.id.tutorInfPhone)
             val whatsButton =findViewById<Button>(R.id.tutorInfoRequestButton)
             tutorInfName.text=selectedTutor.name
@@ -56,6 +57,8 @@ class TutorInfoActivity: AppCompatActivity() {
             val phone =selectedTutor.phone
             supportActionBar!!.title=tutorInfName.text
             val date=selectedTutor.date
+            val bus=selectedTutor.numBusquedas
+            tutorInfBusquedas.text=bus
             if (date != null) {
                 // Convert the Timestamp to a Date object
                 val dateObj = Date(date.seconds * 1000) // Convert seconds to milliseconds

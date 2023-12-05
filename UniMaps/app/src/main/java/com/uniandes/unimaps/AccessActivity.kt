@@ -19,6 +19,7 @@ import com.uniandes.unimaps.databinding.AccessBinding
 import com.uniandes.unimaps.helpers.Network
 import com.uniandes.unimaps.models.UserModel
 import com.uniandes.unimaps.ui.Login.LogInViewModel
+import com.uniandes.unimaps.ui.biometricLogin.LoginBiometrico
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -51,6 +52,7 @@ class AccessActivity : AppCompatActivity() {
 
         binding = AccessBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.loginbutton.setOnClickListener(View.OnClickListener {
             // Se inicia sesion:
             // Manda a ventana principal:
@@ -126,6 +128,10 @@ class AccessActivity : AppCompatActivity() {
             mGoogleSignInClient.signOut()
             startActivityForResult(mGoogleSignInClient.signInIntent, 13)
         }
+        binding.useBiometrics.setOnClickListener(View.OnClickListener{
+            val intent = Intent(this, LoginBiometrico::class.java)
+            startActivity(intent)
+        })
     }
 
     override fun onSupportNavigateUp(): Boolean {

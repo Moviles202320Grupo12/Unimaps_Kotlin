@@ -20,6 +20,10 @@
             android:exported="false"
             android:label="@string/title_activity_access" />
         <activity
+            android:name=".ui.biometricLogin.LoginBiometrico"
+            android:exported="false"
+            android:label="LoginBiometrico" />
+        <activity
             android:name=".ui.WalkingPoints.WalkingFragment"
             android:exported="false"
             android:label="@string/title_activity_WP" />

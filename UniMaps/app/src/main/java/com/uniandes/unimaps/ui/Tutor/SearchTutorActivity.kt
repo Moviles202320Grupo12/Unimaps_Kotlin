@@ -97,6 +97,9 @@ class TutorsSearchActivity : AppCompatActivity() {
             }
 
             tutores= filteredTutor.toMutableList()
+            for (tutor in tutores){
+                tutor.aumentarBusquedas()
+            }
             val adapter = TutorAdapter(this, tutores)
 
             listViewTutor.adapter=adapter
