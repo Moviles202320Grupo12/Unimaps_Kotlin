@@ -14,6 +14,7 @@ data class Tutor(
     val location: String,
     val imageUrl: String,
     val numBusquedas:String
+    val phone: String
 ) : Parcelable {
     constructor() : this("", "", "", "", null, "", "","")
 
@@ -51,6 +52,7 @@ data class Tutor(
         parcel.writeString(location)
         parcel.writeString(imageUrl)
         parcel.writeString(numBusquedas)
+        parcel.writeString(phone)
     }
 
     override fun describeContents(): Int {

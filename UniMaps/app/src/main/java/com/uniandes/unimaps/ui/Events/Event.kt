@@ -6,15 +6,16 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Event(
-    private var id: String, // An identifier for the event, you can choose a suitable type
+    internal var id: String, // An identifier for the event, you can choose a suitable type
     val name: String,
     val description: String,
     val date: Timestamp?, // You can use a suitable date representation, e.g., String or Date
     val location: String,
     val url: String,
-    val urlImage: String
+    val urlImage: String,
+    var popularity: Int
 ) : Parcelable {
-    constructor() : this("", "", "", null, "", "", "")
+    constructor() : this("", "", "", null, "", "", "",0)
 
     // Setter para el campo "id" en Firestore
     fun setId(id: String) {
@@ -33,7 +34,8 @@ data class Event(
         parcel.readParcelable(Timestamp::class.java.classLoader),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        parcel.readString() ?: ""
+        parcel.readString() ?: "",
+        parcel.readInt()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -44,12 +46,17 @@ data class Event(
         parcel.writeString(location)
         parcel.writeString(url)
         parcel.writeString(urlImage)
+        parcel.writeInt(popularity)
     }
 
     override fun describeContents(): Int {
         return 0
     }
 
+    fun incrementPopularity() {
+        popularity++
+
+    }
     companion object CREATOR : Parcelable.Creator<Event> {
         override fun createFromParcel(parcel: Parcel): Event {
             return Event(parcel)

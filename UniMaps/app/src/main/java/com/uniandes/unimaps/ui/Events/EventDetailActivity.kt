@@ -17,8 +17,11 @@ import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.uniandes.unimaps.R
 import java.util.Date
+import com.google.firebase.firestore.FirebaseFirestore
 
 class EventDetailActivity : AppCompatActivity() {
+
+    private val firestore = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -30,7 +33,7 @@ class EventDetailActivity : AppCompatActivity() {
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //set actionbar title
-        myToolbar.title = "Detalle de Evento"
+
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
 
 
@@ -42,9 +45,12 @@ class EventDetailActivity : AppCompatActivity() {
             val eventDescriptionTextView = findViewById<TextView>(R.id.eventDetailDescription)
             val eventDateTextView = findViewById<TextView>(R.id.eventDetailDate)
             val eventLocationTextView = findViewById<TextView>(R.id.eventDetailLocation)
+            val eventPopularityTextView =findViewById<TextView>(R.id.eventDetailPopularity)
 
-            eventNameTextView.text = selectedEvent.name
+            eventNameTextView.text = "Detalle de " + selectedEvent.name
+            supportActionBar!!.title= eventNameTextView.text
             eventDescriptionTextView.text = selectedEvent.description
+            eventPopularityTextView.text = selectedEvent.popularity.toString()
             // Check if the date is not null before formatting
             val date = selectedEvent?.date
             if (date != null) {
@@ -79,7 +85,14 @@ class EventDetailActivity : AppCompatActivity() {
         inscribirButton.setOnClickListener {
             // Call the openWebPage method when the "Inscribir" button is clicked
             if (selectedEvent != null) {
+                // Increment the popularity
+                selectedEvent.incrementPopularity()
+
+                // Update the popularity in the database
+                updatePopularityInDatabase(selectedEvent.id, selectedEvent.popularity)
+
                 openWebPage(selectedEvent.url)
+
             }
         }
 
@@ -90,13 +103,24 @@ class EventDetailActivity : AppCompatActivity() {
     private fun openWebPage(url: String) {
         val webPageUri = Uri.parse(url)
         val intent = Intent(Intent.ACTION_VIEW, webPageUri)
-        if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)
-        } else {
-            // Handle the case where there is no app to handle the URL
-            // You can show a toast message or display an error to the user
-            Toast.makeText(this, "No app can handle this request.", Toast.LENGTH_SHORT).show()
-        }
+        
+    }
+    // Function to update popularity in the database
+    private fun updatePopularityInDatabase(eventId: String, newPopularity: Int) {
+        // Assuming you have a "events" collection in your Firestore
+        val eventRef = firestore.collection("events").document(eventId)
+
+        // Update the "popularity" field with the new value
+        eventRef.update("popularity", newPopularity)
+            .addOnSuccessListener {
+                Log.d("TAG", "Popularity updated in the database")
+            }
+            .addOnFailureListener { e ->
+                Log.w("TAG", "Error updating popularity in the database", e)
+                // Handle the error, e.g., show a toast message
+                Toast.makeText(this, "Error updating popularity.", Toast.LENGTH_SHORT).show()
+            }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

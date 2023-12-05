@@ -5,21 +5,32 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
-import com.uniandes.unimaps.R
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.uniandes.unimaps.R.*
+import com.uniandes.unimaps.helpers.Network
+import com.uniandes.unimaps.ui.Events.Event
 import com.uniandes.unimaps.ui.Events.EventAdapter
-import com.uniandes.unimaps.ui.Events.EventDetailActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okio.BufferedSink
+import okio.BufferedSource
+import okio.IOException
+import okio.buffer
+import okio.sink
+import okio.source
+import java.io.File
 
 
 class TutorsSearchActivity : AppCompatActivity() {
@@ -47,7 +58,7 @@ class TutorsSearchActivity : AppCompatActivity() {
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //set actionbar title
-        myToolbar.title = "Tutores"
+        supportActionBar!!.title = "Tutores"
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
         tutores= mutableListOf()
        val original= tutores
@@ -99,28 +110,117 @@ class TutorsSearchActivity : AppCompatActivity() {
         super.onResume()
         // Inicializar el contexto de CoroutineScope:
         val coroutineScope = CoroutineScope(Dispatchers.Main)
+        val internetCheck = Network.checkConnectivity(this@TutorsSearchActivity)
+        if (internetCheck) {
 
-        coroutineScope.launch {
-            try {
-                val dbEvents = tutorViewModel.getDBTutors();
-                Log.d("TAG", "La BQ fue llamada exitosamente")
+            coroutineScope.launch {
+                try {
+                    val dbEvents = tutorViewModel.getDBTutors();
+                    Log.d("TAG", "La BQ fue llamada exitosamente")
 
-                val tutoresList=dbEvents.values.toList()
-                tutores.clear()
-                tutores.addAll(tutoresList)
-                // Create an ArrayAdapter to populate the ListView with event names
-                // Crear un ArrayAdapter en el contexto principal
-                withContext(Dispatchers.Main) {
-                    val adapter = TutorAdapter(this@TutorsSearchActivity, tutores)
-                    listViewTutor.adapter = adapter
+                    val tutoresList = dbEvents.values.toList()
+                    tutores.clear()
+                    tutores.addAll(tutoresList)
+                    saveTutoresToCache(tutoresList)
+                    // Create an ArrayAdapter to populate the ListView with event names
+                    // Crear un ArrayAdapter en el contexto principal
+                    withContext(Dispatchers.Main) {
+                        val adapter = TutorAdapter(this@TutorsSearchActivity, tutores)
+                        listViewTutor.adapter = adapter
+                    }
+
+                } catch (exception: Exception) {
+                    Log.e("TAG", "Error en la carga del BD de eventos: ${exception.message}")
                 }
 
             }
-            catch  (exception: Exception)
-            {
-                Log.e("TAG", "Error en la carga del BD de eventos: ${exception.message}")
+        }else{
+            val cachelista=loadTutoresFromCache()
+            if (!cachelista.isNullOrEmpty()){
+                coroutineScope.launch {
+                    try {
+                        val dbTutor = tutorViewModel.getDBTutors();
+                        Log.d("TAG", "La BQ fue llamada exitosamente")
+
+                        tutores.clear()
+                        tutores.addAll(cachelista)
+                        // Crear un ArrayAdapter en el contexto principal
+                        withContext(Dispatchers.Main) {
+                            val adapter = TutorAdapter(this@TutorsSearchActivity, tutores)
+                            listViewTutor.adapter = adapter
+                        }
+
+                    } catch (exception: Exception) {
+                        Log.e("TAG", "Error en la carga del BD de eventos: ${exception.message}")
+                    }
+
+                }
+
+            }else{
+                Toast.makeText(this, "No hay internet, cuando haya se cargaran los eventos", Toast.LENGTH_SHORT).show()
+
             }
 
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                // Realiza la acción que desees cuando se presiona el botón de "Atrás"
+                onBackPressed() // Esto es común para volver a la actividad anterior
+                finish()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun saveTutoresToCache(tutores: List<Tutor>) {
+        try {
+            // Abre un archivo para escribir en caché (puedes usar el contexto para obtener el directorio de caché)
+            val cacheFile = File(cacheDir, "tutores_cache.txt")
+            val sink: BufferedSink = cacheFile.sink().buffer()
+
+            // Convierte la lista de eventos a un formato de texto (por ejemplo, JSON)
+            val tutoresJson = convertTutoresToJson(tutores)
+
+            // Escribe los datos en el archivo de caché
+            sink.writeString(tutoresJson, Charsets.UTF_8)
+            sink.flush()
+            sink.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun loadTutoresFromCache(): List<Tutor>? {
+        try {
+            // Abre el archivo de caché para leer
+            val cacheFile = File(cacheDir, "tutores.txt")
+            if (cacheFile.exists()) {
+                val source: BufferedSource = cacheFile.source().buffer()
+                val cacheData = source.readString(Charsets.UTF_8)
+                source.close()
+
+                // Convierte el texto en una lista de eventos (por ejemplo, desde JSON)
+                return convertJsonToTutores(cacheData)
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    private fun convertTutoresToJson(tutores: List<Tutor>): String {
+        val gson = Gson()
+        return gson.toJson(tutores)
+    }
+
+    // Función para convertir JSON a una lista de eventos
+    private fun convertJsonToTutores(json: String): List<Tutor> {
+        val gson = Gson()
+        val tutorType = object : TypeToken<List<Tutor>>() {}.type
+        return gson.fromJson(json, tutorType)
     }
 }

@@ -59,6 +59,12 @@
             android:label="@string/title_activity_event_feed"
             android:theme="@style/Theme.UniMaps.NoActionBar">
         </activity>
+        <activity
+            android:name=".ui.Events.TopEvents_activity"
+            android:exported="true"
+            android:label="@string/title_activity_event_feed"
+            android:theme="@style/Theme.UniMaps.NoActionBar">
+        </activity>
 
         <activity
             android:name=".ui.Events.EventDetailActivity"

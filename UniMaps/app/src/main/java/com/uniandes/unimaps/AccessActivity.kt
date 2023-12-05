@@ -46,7 +46,6 @@ class AccessActivity : AppCompatActivity() {
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#000000")))
         //set back button
         actionbar.setDisplayHomeAsUpEnabled(true)
-        actionbar.setDisplayHomeAsUpEnabled(true)
 
         // Inicializar el ViewModel
         loginViewModel = ViewModelProvider(this).get(LogInViewModel::class.java)

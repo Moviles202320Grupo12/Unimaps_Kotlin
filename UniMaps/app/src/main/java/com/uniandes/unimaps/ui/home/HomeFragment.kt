@@ -11,8 +11,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,8 +27,10 @@ import com.uniandes.unimaps.MainActivity
 import com.uniandes.unimaps.R
 import com.uniandes.unimaps.databinding.FragmentHomeBinding
 import com.uniandes.unimaps.helpers.Network
+import com.uniandes.unimaps.models.InterestingPlace
 import com.uniandes.unimaps.ui.Events.EventsFeedActivity
 import com.uniandes.unimaps.ui.WalkingPoints.WalkingFragment
+import com.uniandes.unimaps.ui.recyclerview.RVAdapter
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
@@ -41,6 +46,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    // Lista de lugares de interes:
+    private val places: MutableList<InterestingPlace> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -82,6 +90,38 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         }
 
+        val recyclerView = root.findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.setHasFixedSize(true)
+        val linearLayoutManager = LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager = linearLayoutManager
+
+        initializeData()
+
+        val adapter = RVAdapter(places)
+
+        adapter.setOnClickListener(object : RVAdapter.OnClickListener {
+            override fun onClick(position: Int, model: InterestingPlace) {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Confirmar")
+                builder.setMessage("¿Estás seguro que quiere continuar la navegación a ${model.name} en otra app?")
+
+                builder.setPositiveButton("Sí") { _, _ ->
+                    // Usuario hizo clic en Sí, abrir Waze
+                    openWazeWithLocationFromFragment(model.coordinates[0], model.coordinates[1], model.name)
+                }
+
+                builder.setNegativeButton("No") { _, _ ->
+                    // Usuario hizo clic en No, no hacer nada
+                }
+
+                val dialog = builder.create()
+                dialog.show()
+
+            }
+        })
+
+        recyclerView.adapter = adapter
+
         return root
     }
 
@@ -104,6 +144,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
             // Referencia al FrameLayout donde esta el mapa:
             val layoutContenedorMapa = view.findViewById<LinearLayout>(R.id.contenedorMapa)
+
+            // Referencia a la Recycle View:
+            val layoutRecycleView = view.findViewById<RecyclerView>(R.id.recycler_view)
+
+            // Referencia a la Recycle View:
+            val layoutTextView = view.findViewById<TextView>(R.id.headerTextView)
+
+            // Cambia la visibilidad del Text View:
+            layoutTextView.visibility = View.GONE
+
+            // Cambia la visibilidad del Recycle View:
+            layoutRecycleView.visibility = View.GONE
 
             // Cambia la visibilidad del FrameLayout:
             layoutContenedorMapa.visibility = View.GONE
@@ -161,5 +213,50 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.black));
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.black));
+    }
+
+    /**
+     * Agregar a la lista los sitios de interes
+     */
+    private fun initializeData() {
+        places.add(InterestingPlace("Edificio ML", listOf(4.6025488, -74.0647954), "Mario Laserna", R.drawable.edificioml))
+        places.add(InterestingPlace("Centro Deportivo", listOf(4.7329161, -74.0183537), "La Caneca", R.drawable.centro_deportivo))
+        places.add(InterestingPlace("Edificio C", listOf(4.6016861, -74.0644734), "Facultad de Arquitectura y Diseño", R.drawable.edificioc))
+    }
+
+    fun openWazeWithLocationFromFragment(
+        latitude: Double,
+        longitude: Double,
+        label: String? = null
+    ) {
+        val wazeUri = if (label != null) {
+            "waze://?ll=$latitude,$longitude&navigate=yes&z=10&q=$label"
+        } else {
+            "waze://?ll=$latitude,$longitude&navigate=yes&z=10"
+        }
+
+        val wazeIntent = Intent(Intent.ACTION_VIEW, Uri.parse(wazeUri))
+
+        // Check if Waze is installed
+        if (wazeIntent.resolveActivity(requireActivity().packageManager) != null) {
+            requireActivity().startActivity(wazeIntent)
+        } else {
+            // Waze is not installed, check if Google Maps is installed
+            val googleMapsUri = "google.navigation:q=$latitude,$longitude"
+            val googleMapsIntent = Intent(Intent.ACTION_VIEW, Uri.parse(googleMapsUri))
+
+            if (googleMapsIntent.resolveActivity(requireActivity().packageManager) != null) {
+                // Google Maps is installed, open it
+                requireActivity().startActivity(googleMapsIntent)
+            } else {
+                // Neither Waze nor Google Maps is installed, redirect to the Play Store to install Waze
+                val playStoreIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=com.waze")
+                )
+                requireActivity().startActivity(playStoreIntent)
+            }
+        }
+
     }
 }

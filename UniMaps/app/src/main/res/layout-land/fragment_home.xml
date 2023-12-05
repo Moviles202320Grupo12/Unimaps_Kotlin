@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"
-        android:layout_weight="8"
+        android:layout_weight="100"
         android:gravity="top"
         android:orientation="horizontal">
 
@@ -50,45 +50,43 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/contenedorMapa"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="86"
         android:layout_height="0dp"
-        android:id="@+id/contenedorMapa">
+        android:layout_weight="500"
+        android:orientation="vertical">
 
-    <!-- Mapa -->
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        tools:context=".ui.home.HomeFragment"
-        android:layout_height="match_parent"/>
+        <!-- Mapa -->
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.home.HomeFragment" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/headerTextView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lugares de Interes Cercanos"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:paddingTop="2dp"
-        android:textStyle="bold"
-        android:paddingBottom="2dp" />
+        android:orientation="vertical"
+        android:layout_weight="200"
+        android:layout_height="10dp"
+        android:id="@+id/contenedorRecycle">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/contenedorMapa"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:clipToPadding="false"
-        android:overScrollMode="never"
-        android:scrollbars="none"
-        android:nestedScrollingEnabled="false"
-    />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/contenedorMapa"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:nestedScrollingEnabled="false"
+            />
+
+    </LinearLayout>
 
 
 
@@ -123,3 +121,4 @@
     </RelativeLayout>
 
 </LinearLayout>
+

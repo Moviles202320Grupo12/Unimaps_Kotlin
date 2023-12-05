@@ -9,4 +9,5 @@
     <item name="tutorInfoSaveButton" type="id" />
     <item name="tutorInfoName" type="id" />
     <item name="tutorInfoImage" type="id" />
+    <item name="listViewTopEventsEvents" type="id" />
 </resources>

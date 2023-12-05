@@ -18,9 +18,6 @@ class MapActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Autenticación con Firebase:
-        MainActivity.auth = Firebase.auth
-
 
         binding = ActivityMapBinding.inflate(layoutInflater)
         setContentView(binding.root)

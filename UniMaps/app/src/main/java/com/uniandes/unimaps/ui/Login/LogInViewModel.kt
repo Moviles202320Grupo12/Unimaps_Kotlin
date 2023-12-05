@@ -28,4 +28,8 @@ class LogInViewModel : ViewModel() {
         conexionBD.updateWaysLogIn(login_form)
     }
 
+    suspend fun storeTimeToLogIn(timeInMillis: Long) {
+        conexionBD.storeTimeToLogIn(timeInMillis);
+    }
+
 }

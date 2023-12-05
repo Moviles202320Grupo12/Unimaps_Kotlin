@@ -50,9 +50,9 @@ class EventsFeedActivity : AppCompatActivity()  {
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //set actionbar title
-        myToolbar.title = "Eventos"
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
 
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#FED353")))
+        supportActionBar!!.title="Eventos"
         events = mutableListOf() // Initialize it in onCreate
         // Initialize UI components
         listViewEvents = findViewById(R.id.listViewEvents)
