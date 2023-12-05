@@ -19,10 +19,11 @@ import com.google.firebase.ktx.Firebase
 import com.uniandes.unimaps.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity(valorRecibido:Boolean?) : AppCompatActivity() {
 
     // Preferencias:
     var prefs: SharedPreferences? = null
+    val valor:Boolean? = valorRecibido
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -36,20 +37,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if(valor!=true){
+            auth = Firebase.auth
+
+            if(auth.currentUser == null)
+            {
+                startActivity(Intent(this, LogInActivity::class.java))
+                finish()
+            }
+            else
+            {
+                saveUserInfo();
+            }
+        }
         // Autenticación con Firebase:
-        auth = Firebase.auth
-
-        if(auth.currentUser == null)
-        {
-            startActivity(Intent(this, LogInActivity::class.java))
-            finish()
-        }
-        else
-        {
-            saveUserInfo();
-        }
-
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

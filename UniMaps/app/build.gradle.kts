@@ -72,6 +72,8 @@ dependencies {
     implementation("com.squareup.okio:okio:2.9.0")
     implementation ("com.google.code.gson:gson:2.8.8")
 
+    implementation ("androidx.biometric:biometric-ktx:1.2.0-alpha04")
+
 
 
 }
