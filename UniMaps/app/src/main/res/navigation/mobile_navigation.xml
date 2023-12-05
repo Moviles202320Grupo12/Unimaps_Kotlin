@@ -12,12 +12,6 @@
         tools:layout="@layout/fragment_feed" />
 
     <fragment
-        android:id="@+id/nav_events"
-        android:name="com.uniandes.unimaps.ui.gallery.GalleryFragment"
-        android:label="@string/menu_events"
-        tools:layout="@layout/eventosfeed" />
-
-    <fragment
         android:id="@+id/nav_log_out"
         android:name="com.uniandes.unimaps.ui.LogOutFragment"
         android:label="@string/menu_home"

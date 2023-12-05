@@ -8,10 +8,7 @@
             android:id="@+id/nav_Feed"
             android:icon="@drawable/menu_home"
             android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_events"
-            android:icon="@drawable/menu_events"
-            android:title="@string/menu_events" />
+        
         <item
             android:id="@+id/nav_log_out"
             android:icon="@drawable/log_out"
