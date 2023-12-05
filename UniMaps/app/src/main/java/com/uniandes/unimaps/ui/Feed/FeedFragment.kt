@@ -18,6 +18,7 @@ import com.uniandes.unimaps.ui.Events.EventsFeedActivity
 import com.uniandes.unimaps.R
 import com.uniandes.unimaps.RegisterActivity
 import com.uniandes.unimaps.databinding.FragmentFeedBinding
+import com.uniandes.unimaps.ui.Events.TopEvents_activity
 import com.uniandes.unimaps.ui.Tutor.TutorsSearchActivity
 import com.uniandes.unimaps.ui.WalkingPoints.WalkingFragment
 import com.uniandes.unimaps.ui.home.HomeFragment
@@ -49,6 +50,13 @@ class FeedFragment : Fragment() {
         val eventButton =root.findViewById<Button>(R.id.buttonEventFeed)
         eventButton.setOnClickListener {
             val intent = Intent (getActivity(), EventsFeedActivity::class.java)
+            getActivity()?.startActivity(intent)
+
+        }
+
+        val topeventButton =root.findViewById<Button>(R.id.buttonTopEventFeed)
+        eventButton.setOnClickListener {
+            val intent = Intent (getActivity(), TopEvents_activity::class.java)
             getActivity()?.startActivity(intent)
 
         }
