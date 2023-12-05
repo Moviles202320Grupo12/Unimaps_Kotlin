@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +30,7 @@ import com.uniandes.unimaps.helpers.Network
 import com.uniandes.unimaps.models.InterestingPlace
 import com.uniandes.unimaps.ui.Events.EventsFeedActivity
 import com.uniandes.unimaps.ui.WalkingPoints.WalkingFragment
-import com.uniandes.unimaps.ui.place.RVAdapter
+import com.uniandes.unimaps.ui.recyclerview.RVAdapter
 
 
 class HomeFragment : Fragment(), OnMapReadyCallback {
@@ -144,6 +144,18 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
 
             // Referencia al FrameLayout donde esta el mapa:
             val layoutContenedorMapa = view.findViewById<LinearLayout>(R.id.contenedorMapa)
+
+            // Referencia a la Recycle View:
+            val layoutRecycleView = view.findViewById<RecyclerView>(R.id.recycler_view)
+
+            // Referencia a la Recycle View:
+            val layoutTextView = view.findViewById<TextView>(R.id.headerTextView)
+
+            // Cambia la visibilidad del Text View:
+            layoutTextView.visibility = View.GONE
+
+            // Cambia la visibilidad del Recycle View:
+            layoutRecycleView.visibility = View.GONE
 
             // Cambia la visibilidad del FrameLayout:
             layoutContenedorMapa.visibility = View.GONE
