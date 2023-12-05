@@ -9,10 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 import com.uniandes.unimaps.R
 import com.uniandes.unimaps.models.InterestingPlace
-import com.uniandes.unimaps.utils.ImageLoader
 
 class RVAdapter(
     private val persons: List<InterestingPlace>
