@@ -41,11 +41,14 @@ class TutorInfoActivity: AppCompatActivity() {
             val tutorInfDesc=findViewById<TextView>(R.id.tutorInfoDescription)
             val tutorInfDate =findViewById<TextView>(R.id.tutorInfoDate)
             val tutorInfImage =findViewById<ImageView>(R.id.tutorInfoImage)
+            val tutorInfBusquedas =findViewById<TextView>(R.id.tutorInfoBusquedas)
             tutorInfName.text=selectedTutor.name
             tutorInfDesc.text=selectedTutor.description
             tutorInfLocation.text=selectedTutor.location
             tutorInfMateria.text=selectedTutor.materia
             val date=selectedTutor.date
+            val bus=selectedTutor.numBusquedas
+            tutorInfBusquedas.text=bus
             if (date != null) {
                 // Convert the Timestamp to a Date object
                 val dateObj = Date(date.seconds * 1000) // Convert seconds to milliseconds

@@ -39,9 +39,11 @@ class TutorAdapter(
         val tutorDateTextView = listItemView.findViewById<TextView>(R.id.tutorDateTextView)
         val tutorLocationTextView = listItemView.findViewById<TextView>(R.id.tutorLocationTextView)
         val tutorDescriptionTextView =listItemView.findViewById<TextView>(R.id.TutorDescriptionTextView)
+        val tutorBusquedasTextView =listItemView.findViewById<TextView>(R.id.TutorBusquedasTextView)
 
         tutorNameTextView.text = currentTutor?.name
         tutorMateriaTextView.text = currentTutor?.materia
+        tutorBusquedasTextView.text = currentTutor?.numBusquedas
         val date = currentTutor?.date
         if (date != null) {
             // Convert the Timestamp to a Date object

@@ -12,9 +12,10 @@ data class Tutor(
     val materia: String,
     val date: Timestamp?, // You can use a suitable date representation, e.g., String or Date
     val location: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val numBusquedas:String
 ) : Parcelable {
-    constructor() : this("", "", "", "", null, "", "")
+    constructor() : this("", "", "", "", null, "", "","")
 
     // Setter para el campo "id" en Firestore
     fun setId(id: String) {
@@ -24,6 +25,9 @@ data class Tutor(
     fun getId(): String {
         return this.id
     }
+    fun aumentarBusquedas(): String{
+        return (numBusquedas.toInt() +1).toString()
+    }
 
     // Implement Parcelable methods
     constructor(parcel: Parcel) : this(
@@ -32,6 +36,7 @@ data class Tutor(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readParcelable(Timestamp::class.java.classLoader),
+        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: ""
     )
@@ -45,6 +50,7 @@ data class Tutor(
         parcel.writeParcelable(date, flags)
         parcel.writeString(location)
         parcel.writeString(imageUrl)
+        parcel.writeString(numBusquedas)
     }
 
     override fun describeContents(): Int {
